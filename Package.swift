@@ -13,13 +13,23 @@ let package = Package(
         )
     ],
     dependencies: [
+        .package(url: "https://github.com/ishkawa/APIKit.git", .upToNextMajor(from: "5.4.0")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.2.2")),
+        .package(url: "https://github.com/pointfreeco/swift-tagged.git", .upToNextMajor(from: "0.10.0")),
     ],
     targets: [
         .executableTarget(
             name: "GitHubAppsToken",
             dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser")
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                "GitHubAppsAPI",
+            ]
+        ),
+        .target(
+            name: "GitHubAppsAPI",
+            dependencies: [
+                .product(name: "APIKit", package: "APIKit"),
+                .product(name: "Tagged", package: "swift-tagged"),
             ]
         ),
         .testTarget(

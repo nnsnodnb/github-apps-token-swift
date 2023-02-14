@@ -2,12 +2,30 @@
   "object": {
     "pins": [
       {
+        "package": "APIKit",
+        "repositoryURL": "https://github.com/ishkawa/APIKit.git",
+        "state": {
+          "branch": null,
+          "revision": "b839e53b870104798035b279d2a6168b0a2227b1",
+          "version": "5.4.0"
+        }
+      },
+      {
         "package": "swift-argument-parser",
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
           "branch": null,
           "revision": "fee6933f37fde9a5e12a1e4aeaa93fe60116ff2a",
           "version": "1.2.2"
+        }
+      },
+      {
+        "package": "swift-tagged",
+        "repositoryURL": "https://github.com/pointfreeco/swift-tagged.git",
+        "state": {
+          "branch": null,
+          "revision": "3907a9438f5b57d317001dc99f3f11b46882272b",
+          "version": "0.10.0"
         }
       }
     ]
