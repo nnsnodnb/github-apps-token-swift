@@ -6,6 +6,7 @@
 //
 
 import APIKit
+import Entities
 import Foundation
 
 public extension GitHubAppsAPI.Installation.Revoke {
@@ -26,7 +27,7 @@ public extension GitHubAppsAPI.Installation.Revoke {
         private let accessToken: AccessToken
 
         // MARK: - Initialize
-        init(accessToken: AccessToken) {
+        public init(accessToken: AccessToken) {
             self.accessToken = accessToken
         }
     }

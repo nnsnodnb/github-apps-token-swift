@@ -17,10 +17,7 @@ public final class APIClient {
         self.session = session
     }
 
-    func response<Request: GitHubRequestType>(
-        for request: Request,
-        callbackQueue: CallbackQueue? = nil
-    ) async throws -> Request.Response {
-        return try await session.response(for: request, callbackQueue: callbackQueue)
+    public func response<Request: GitHubRequestType>(for request: Request) async throws -> Request.Response {
+        return try await session.response(for: request)
     }
 }

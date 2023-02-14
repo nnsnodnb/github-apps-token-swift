@@ -5,6 +5,7 @@
 //  Created by Yuya Oka on 2023/02/14.
 //
 
+import Entities
 import Foundation
 
 public enum Endpoint {

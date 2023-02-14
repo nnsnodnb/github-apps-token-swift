@@ -6,12 +6,13 @@
 //
 
 import APIKit
+import Entities
 import Foundation
 
 public extension GitHubAppsAPI.App.Installation {
     struct List: GitHubAuthorizeRequestType {
         // MARK: - Response
-        public typealias Response = ListResponse<Installation>
+        public typealias Response = [Installation]
 
         // MARK: - Properties
         public let method: HTTPMethod = .get

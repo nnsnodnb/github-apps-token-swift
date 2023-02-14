@@ -6,6 +6,7 @@
 //
 
 import APIKit
+import Entities
 import Foundation
 
 public protocol GitHubAuthorizeRequestType: GitHubRequestType {

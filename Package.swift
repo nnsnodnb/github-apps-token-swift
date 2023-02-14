@@ -15,6 +15,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/ishkawa/APIKit.git", .upToNextMajor(from: "5.4.0")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.2.2")),
+        .package(url: "https://github.com/Kitura/Swift-JWT.git", .upToNextMajor(from: "4.0.0")),
         .package(url: "https://github.com/pointfreeco/swift-tagged.git", .upToNextMajor(from: "0.10.0")),
     ],
     targets: [
@@ -22,6 +23,20 @@ let package = Package(
             name: "GitHubAppsToken",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                "GitHubAppsCore",
+            ]
+        ),
+        .target(
+            name: "Entities",
+            dependencies: [
+                .product(name: "Tagged", package: "swift-tagged"),
+            ]
+        ),
+        .target(
+            name: "GitHubAppsCore",
+            dependencies: [
+                .product(name: "SwiftJWT", package: "Swift-JWT"),
+                "Entities",
                 "GitHubAppsAPI",
             ]
         ),
@@ -30,6 +45,7 @@ let package = Package(
             dependencies: [
                 .product(name: "APIKit", package: "APIKit"),
                 .product(name: "Tagged", package: "swift-tagged"),
+                "Entities",
             ]
         ),
         .testTarget(

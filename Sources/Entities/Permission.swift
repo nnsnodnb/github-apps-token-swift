@@ -15,7 +15,7 @@ public struct Permission: Encodable {
     public let issues: Level?
     public let metadata: Level?
 
-    var jsonObject: [String: Any] {
+    public var jsonObject: [String: Any] {
         do {
             let data = try JSONEncoder().encode(self)
             let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any]
@@ -31,6 +31,7 @@ public struct Permission: Encodable {
         case statuses
         case pullRequests = "pull_requests"
         case issues
+        case metadata
     }
 
     // MARK: - Initialize
@@ -38,7 +39,7 @@ public struct Permission: Encodable {
         contents: Level? = nil,
         statuses: Level? = nil,
         pullRequests: Level? = nil,
-        issues: Level?
+        issues: Level? = nil
     ) {
         self.contents = contents
         self.statuses = statuses
@@ -53,6 +54,7 @@ public struct Permission: Encodable {
         try container.encodeIfPresent(statuses, forKey: .statuses)
         try container.encodeIfPresent(pullRequests, forKey: .pullRequests)
         try container.encodeIfPresent(issues, forKey: .issues)
+        try container.encodeIfPresent(metadata, forKey: .metadata)
     }
 }
 
