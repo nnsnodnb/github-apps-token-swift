@@ -23,19 +23,18 @@ public struct GitHubApps {
     }
 
     // MARK: - Create access token
-    public func accessToken(for owner: String, repositories: [Repository], permission: Permission) async throws -> AccessToken {
-        let installation = try await getInstallation(for: owner)
+    public func createAccessToken(
+        for user: String,
+        repositories: [Repository],
+        permission: Permission
+    ) async throws -> AccessToken {
+        let installation = try await getInstallation(for: user)
         let accessToken = try await createAccessToken(
             installation: installation,
             repositories: repositories,
             permission: permission
         )
         return accessToken
-    }
-
-    // MARK: - Revoke access token
-    public func revokeAccessToken(_ accessToken: AccessToken.Token) async throws {
-        try await githubAppsRepository.revokeAccessToken(accessToken)
     }
 }
 

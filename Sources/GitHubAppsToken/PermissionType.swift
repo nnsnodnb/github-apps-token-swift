@@ -1,5 +1,5 @@
 //
-//  CommandType.swift
+//  PermissionType.swift
 //  
 //
 //  Created by Yuya Oka on 2023/02/15.
@@ -7,20 +7,22 @@
 
 import Foundation
 
-enum CommandType: String, CaseIterable {
-    case create
-    case revoke
+enum PermissionType: String, Decodable {
+    case contents
+    case statuses
+    case pullRequests = "pull_requests"
+    case issues
 }
 
 // MARK: - Error
-extension CommandType {
+extension PermissionType {
     enum Error: Swift.Error, CustomStringConvertible {
         case unknown
 
         var description: String {
             switch self {
             case .unknown:
-                return "不明なコマンドが入力されました"
+                return "不明な権限です"
             }
         }
     }
