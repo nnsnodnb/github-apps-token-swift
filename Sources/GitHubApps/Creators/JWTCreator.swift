@@ -17,15 +17,15 @@ public final class JWTCreator: JWTCreatable {
     public let privateKey: String
 
     // MARK: - Initialize
-    public init(appID: String, privateKey: String) {
+    public init(appID: String, privateKey: URL) throws {
         self.iss = appID
-        self.privateKey = privateKey
+        self.privateKey = try String(contentsOf: privateKey)
     }
 
     public func generate() throws -> Entities.JWT {
         let header = Header(typ: "JWT")
         let payload = Payload(iat: iat, exp: exp, iss: iss)
-        var jwt = SwiftJWT.JWT(header: header, claims: payload)
+        var jwt = JWT(header: header, claims: payload)
         let privateKeyData = privateKey.data(using: .utf8)
         let signer = JWTSigner.rs256(privateKey: privateKeyData ?? .init())
         let token = try jwt.sign(using: signer)
@@ -39,5 +39,15 @@ private extension JWTCreator {
         let iat: Date
         let exp: Date
         let iss: String
+
+        func encode() throws -> String {
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .custom { date, encoder in
+                var container = encoder.singleValueContainer()
+                try container.encode(Int(date.timeIntervalSince1970))
+            }
+            let data = try encoder.encode(self)
+            return JWTEncoder.base64urlEncodedString(data: data)
+        }
     }
 }

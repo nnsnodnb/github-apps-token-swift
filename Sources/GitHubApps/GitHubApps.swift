@@ -1,5 +1,5 @@
 //
-//  GitHubAppsCore.swift
+//  GitHubApps.swift
 //  
 //
 //  Created by Yuya Oka on 2023/02/14.
@@ -8,26 +8,16 @@
 import Entities
 import Foundation
 
-public struct GitHubAppsCore {
+public struct GitHubApps {
     // MARK: - Properties
-    public let appID: String
-    public let privateKey: String
-
-    private let apiClient: any APIClientProtocol
     private let jwtCreator: any JWTCreatable
     private let githubAppsRepository: any GitHubAppsRepositoryProtocol
 
     // MARK: - Initialize
     public init(
-        appID: String,
-        privateKey: String,
-        apiClient: any APIClientProtocol,
         jwtCreator: any JWTCreatable,
         githubAppsRepository: any GitHubAppsRepositoryProtocol
     ) {
-        self.appID = appID
-        self.privateKey = privateKey
-        self.apiClient = apiClient
         self.jwtCreator = jwtCreator
         self.githubAppsRepository = githubAppsRepository
     }
@@ -44,13 +34,13 @@ public struct GitHubAppsCore {
     }
 
     // MARK: - Revoke access token
-    public func revokeAccessToken(_ accessToken: AccessToken) async throws {
+    public func revokeAccessToken(_ accessToken: AccessToken.Token) async throws {
         try await githubAppsRepository.revokeAccessToken(accessToken)
     }
 }
 
 // MARK: - Private method
-private extension GitHubAppsCore {
+private extension GitHubApps {
     func getInstallation(for owner: String) async throws -> Installation {
         let jwtToken = try jwtCreator.generate()
         let installations = try await githubAppsRepository.fetchInstallationApps(jwtToken: jwtToken)

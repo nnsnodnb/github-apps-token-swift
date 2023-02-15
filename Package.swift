@@ -23,7 +23,7 @@ let package = Package(
             name: "GitHubAppsToken",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                "GitHubAppsCore",
+                "GitHubApps",
             ]
         ),
         .target(
@@ -33,8 +33,9 @@ let package = Package(
             ]
         ),
         .target(
-            name: "GitHubAppsCore",
+            name: "GitHubApps",
             dependencies: [
+                .product(name: "APIKit", package: "APIKit"),
                 .product(name: "SwiftJWT", package: "Swift-JWT"),
                 "Entities",
                 "GitHubAppsAPI",

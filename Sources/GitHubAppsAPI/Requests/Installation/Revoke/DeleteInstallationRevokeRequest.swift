@@ -20,14 +20,14 @@ public extension GitHubAppsAPI.Installation.Revoke {
 
         public var headerFields: [String: String] {
             return [
-                "Authorization": "Bearer \(accessToken.token.rawValue)"
+                "Authorization": "Bearer \(accessToken.rawValue)"
             ]
         }
 
-        private let accessToken: AccessToken
+        private let accessToken: AccessToken.Token
 
         // MARK: - Initialize
-        public init(accessToken: AccessToken) {
+        public init(accessToken: AccessToken.Token) {
             self.accessToken = accessToken
         }
     }

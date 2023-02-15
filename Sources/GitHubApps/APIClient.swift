@@ -7,6 +7,7 @@
 
 import APIKit
 import Foundation
+import GitHubAppsAPI
 
 public final class APIClient {
     // MARK: - Properties
