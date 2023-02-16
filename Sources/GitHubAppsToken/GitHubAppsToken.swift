@@ -9,7 +9,7 @@ struct GitHubAppsToken: AsyncParsableCommand {
     static var configuration: CommandConfiguration = {
         .init(
             commandName: "github-apps-token",
-            version: "1.0.0",
+            version: GitHubApps.version,
             subcommands: [Create.self, Revoke.self]
         )
     }()

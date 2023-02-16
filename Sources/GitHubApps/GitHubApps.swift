@@ -10,6 +10,8 @@ import Foundation
 
 public struct GitHubApps {
     // MARK: - Properties
+    public static let version = "1.0.0"
+
     private let jwtCreator: any JWTCreatable
     private let githubAppsRepository: any GitHubAppsRepositoryProtocol
 
