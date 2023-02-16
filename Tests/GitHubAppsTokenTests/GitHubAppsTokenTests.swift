@@ -6,7 +6,6 @@
 //
 
 import ArgumentParser
-@testable import github_apps_token
 import GitHubApps
 import XCTest
 
