@@ -7,6 +7,7 @@
 
 import Entities
 import Foundation
+import JWTKit
 import SwiftJWT
 
 public final class JWTCreator: JWTCreatable {
@@ -14,40 +15,49 @@ public final class JWTCreator: JWTCreatable {
     public private(set) lazy var iat: Date = .init()
     public var exp: Date { return Date(timeInterval: 60 * 10, since: iat) }
     public let iss: String
-    public let privateKey: String
+    public let privateKey: Data
 
     // MARK: - Initialize
     public init(appID: String, privateKey: URL) throws {
         self.iss = appID
-        self.privateKey = try String(contentsOf: privateKey)
+        self.privateKey = try Data(contentsOf: privateKey)
     }
 
     public func generate() throws -> Entities.JWT {
-        let header = Header(typ: "JWT")
-        let payload = Payload(iat: iat, exp: exp, iss: iss)
-        var jwt = JWT(header: header, claims: payload)
-        let privateKeyData = privateKey.data(using: .utf8)
-        let signer = JWTSigner.rs256(privateKey: privateKeyData ?? .init())
-        let token = try jwt.sign(using: signer)
+        let signers = JWTSigners()
+        let key = try RSAKey.private(pem: privateKey)
+        signers.use(.rs256(key: key))
+        let payload = Payload(expiration: .init(value: exp), issuer: .init(value: iss))
+        let token = try signers.sign(payload)
         return .init(token)
     }
 }
 
 // MARK: - Paylaod
-private extension JWTCreator {
-    struct Payload: Claims {
-        let iat: Date
-        let exp: Date
-        let iss: String
+public extension JWTCreator {
+    struct Payload: JWTPayload {
+        let issuedAt: IssuedAtClaim = .init(value: .init())
+        let expiration: ExpirationClaim
+        let issuer: IssuerClaim
 
-        func encode() throws -> String {
-            let encoder = JSONEncoder()
-            encoder.dateEncodingStrategy = .custom { date, encoder in
-                var container = encoder.singleValueContainer()
-                try container.encode(Int(date.timeIntervalSince1970))
-            }
-            let data = try encoder.encode(self)
-            return JWTEncoder.base64urlEncodedString(data: data)
+        // MARK: - CodingKeys
+        private enum CodingKeys: String, CodingKey {
+            case issuedAt = "iat"
+            case expiration = "exp"
+            case issuer = "iss"
+        }
+
+        public func verify(using signer: JWTKit.JWTSigner) throws {
+            try self.expiration.verifyNotExpired()
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            let issuedAt = Int(issuedAt.value.timeIntervalSince1970)
+            try container.encode(issuedAt, forKey: .issuedAt)
+            let expiration = Int(expiration.value.timeIntervalSince1970)
+            try container.encode(expiration, forKey: .expiration)
+            try container.encode(issuer, forKey: .issuer)
         }
     }
 }

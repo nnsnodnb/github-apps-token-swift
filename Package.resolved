@@ -11,48 +11,12 @@
         }
       },
       {
-        "package": "Cryptor",
-        "repositoryURL": "https://github.com/Kitura/BlueCryptor.git",
+        "package": "jwt-kit",
+        "repositoryURL": "https://github.com/vapor/jwt-kit.git",
         "state": {
           "branch": null,
-          "revision": "cec97c24b111351e70e448972a7d3fe68a756d6d",
-          "version": "2.0.2"
-        }
-      },
-      {
-        "package": "CryptorECC",
-        "repositoryURL": "https://github.com/Kitura/BlueECC.git",
-        "state": {
-          "branch": null,
-          "revision": "1485268a54f8135435a825a855e733f026fa6cc8",
-          "version": "1.2.201"
-        }
-      },
-      {
-        "package": "CryptorRSA",
-        "repositoryURL": "https://github.com/Kitura/BlueRSA.git",
-        "state": {
-          "branch": null,
-          "revision": "440f78db26d8bb073f29590f1c7bd31004da09ae",
-          "version": "1.0.201"
-        }
-      },
-      {
-        "package": "KituraContracts",
-        "repositoryURL": "https://github.com/Kitura/KituraContracts.git",
-        "state": {
-          "branch": null,
-          "revision": "6edf7ac3dd2b3a2c61284778d430bbad7d8a6f23",
-          "version": "2.0.1"
-        }
-      },
-      {
-        "package": "LoggerAPI",
-        "repositoryURL": "https://github.com/Kitura/LoggerAPI.git",
-        "state": {
-          "branch": null,
-          "revision": "4e6b45e850ffa275e8e26a24c6454fd709d5b6ac",
-          "version": "2.0.0"
+          "revision": "dcd78f07e092ac9138327e2bfbb0687a55a80850",
+          "version": "4.8.0"
         }
       },
       {
@@ -65,21 +29,12 @@
         }
       },
       {
-        "package": "SwiftJWT",
-        "repositoryURL": "https://github.com/Kitura/Swift-JWT.git",
+        "package": "swift-crypto",
+        "repositoryURL": "https://github.com/apple/swift-crypto.git",
         "state": {
           "branch": null,
-          "revision": "08e02ff214c41df49bdd189ff837d68ba11c437b",
-          "version": "4.0.0"
-        }
-      },
-      {
-        "package": "swift-log",
-        "repositoryURL": "https://github.com/apple/swift-log.git",
-        "state": {
-          "branch": null,
-          "revision": "32e8d724467f8fe623624570367e3d50c5638e46",
-          "version": "1.5.2"
+          "revision": "75ec60b8b4cc0f085c3ac414f3dca5625fa3588e",
+          "version": "2.2.4"
         }
       },
       {

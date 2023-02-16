@@ -14,8 +14,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ishkawa/APIKit.git", .upToNextMajor(from: "5.4.0")),
+        .package(url: "https://github.com/vapor/jwt-kit.git", .upToNextMajor(from: "4.8.0")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.2.2")),
-        .package(url: "https://github.com/Kitura/Swift-JWT.git", .upToNextMajor(from: "4.0.0")),
         .package(url: "https://github.com/pointfreeco/swift-tagged.git", .upToNextMajor(from: "0.10.0")),
     ],
     targets: [
@@ -36,7 +36,7 @@ let package = Package(
             name: "GitHubApps",
             dependencies: [
                 .product(name: "APIKit", package: "APIKit"),
-                .product(name: "SwiftJWT", package: "Swift-JWT"),
+                .product(name: "JWTKit", package: "jwt-kit"),
                 "Entities",
                 "GitHubAppsAPI",
             ]
@@ -55,7 +55,10 @@ let package = Package(
         ),
         .testTarget(
             name: "GitHubAppsTests",
-            dependencies: ["GitHubApps"]
+            dependencies: [
+                "GitHubApps",
+            ],
+            resources: [.process("Resources")]
         ),
     ]
 )
