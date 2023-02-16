@@ -11,10 +11,10 @@ import XCTest
 
 final class GitHubAppsTests: XCTestCase {
     func testCreateAccessToken() async throws {
-        let jwtCreator = StubJWTCreator()
+        let jwtGenerator = StubJWTGenerator()
         let githubAppsRepository = StubGitHubAppsRepository()
         let apps = GitHubApps(
-            jwtCreator: jwtCreator,
+            jwtGenerator: jwtGenerator,
             githubAppsRepository: githubAppsRepository
         )
 

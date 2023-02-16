@@ -1,5 +1,5 @@
 //
-//  JWTCreator.swift
+//  JWTGenerator.swift
 //  
 //
 //  Created by Yuya Oka on 2023/02/15.
@@ -9,7 +9,7 @@ import Entities
 import Foundation
 import JWTKit
 
-public final class JWTCreator: JWTCreatable {
+public final class JWTGenerator: JWTGeneratorable {
     // MARK: - Properties
     public private(set) lazy var iat: Date = .init()
     public var exp: Date { return Date(timeInterval: 60 * 10, since: iat) }
@@ -33,7 +33,7 @@ public final class JWTCreator: JWTCreatable {
 }
 
 // MARK: - Paylaod
-public extension JWTCreator {
+public extension JWTGenerator {
     struct Payload: JWTPayload {
         let issuedAt: IssuedAtClaim = .init(value: .init())
         let expiration: ExpirationClaim

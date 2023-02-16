@@ -88,10 +88,10 @@ extension GitHubAppsToken {
 // MARK: - Create
 extension GitHubAppsToken.Create {
     func run() async throws {
-        let jwtCreator = try JWTCreator(appID: appID, privateKey: privateKey)
+        let jwtGenerator = try JWTGenerator(appID: appID, privateKey: privateKey)
         let apiClient = APIClient()
         let githubAppsRepository = GitHubAppsRepository(apiClient: apiClient)
-        let apps = GitHubApps(jwtCreator: jwtCreator, githubAppsRepository: githubAppsRepository)
+        let apps = GitHubApps(jwtGenerator: jwtGenerator, githubAppsRepository: githubAppsRepository)
         let permission = makePermission()
 
         let accessToken = try await apps.createAccessToken(for: user, repositories: repositories, permission: permission)

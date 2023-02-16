@@ -1,5 +1,5 @@
 //
-//  JWTCreatable.swift
+//  JWTGeneratorable.swift
 //  
 //
 //  Created by Yuya Oka on 2023/02/14.
@@ -8,7 +8,7 @@
 import Entities
 import Foundation
 
-public protocol JWTCreatable {
+public protocol JWTGeneratorable {
     var iat: Date { get }
     var exp: Date { get }
     var iss: String { get }

@@ -12,15 +12,15 @@ public struct GitHubApps {
     // MARK: - Properties
     public static let version = "1.0.0"
 
-    private let jwtCreator: any JWTCreatable
+    private let jwtGenerator: any JWTGeneratorable
     private let githubAppsRepository: any GitHubAppsRepositoryProtocol
 
     // MARK: - Initialize
     public init(
-        jwtCreator: any JWTCreatable,
+        jwtGenerator: any JWTGeneratorable,
         githubAppsRepository: any GitHubAppsRepositoryProtocol
     ) {
-        self.jwtCreator = jwtCreator
+        self.jwtGenerator = jwtGenerator
         self.githubAppsRepository = githubAppsRepository
     }
 
@@ -43,7 +43,7 @@ public struct GitHubApps {
 // MARK: - Private method
 private extension GitHubApps {
     func getInstallation(for owner: String) async throws -> Installation {
-        let jwtToken = try jwtCreator.generate()
+        let jwtToken = try jwtGenerator.generate()
         let installations = try await githubAppsRepository.fetchInstallationApps(jwtToken: jwtToken)
         guard let installation = installations.first(where: { $0.account.login == owner }) else {
             throw Error.notFoundInstallation
@@ -56,7 +56,7 @@ private extension GitHubApps {
         repositories: [Repository],
         permission: Permission
     ) async throws -> AccessToken {
-        let jwtToken = try jwtCreator.generate()
+        let jwtToken = try jwtGenerator.generate()
         let accessToken = try await githubAppsRepository.createAccessToken(
             jwtToken: jwtToken,
             installationID: installation.id,

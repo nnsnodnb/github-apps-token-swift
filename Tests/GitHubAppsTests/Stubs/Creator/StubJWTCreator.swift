@@ -1,5 +1,5 @@
 //
-//  StubJWTCreator.swift
+//  StubJWTGenerator.swift
 //  
 //
 //  Created by Yuya Oka on 2023/02/16.
@@ -9,7 +9,7 @@ import Entities
 import Foundation
 @testable import GitHubApps
 
-struct StubJWTCreator: JWTCreatable {
+struct StubJWTGenerator: JWTGeneratorable {
     // MARK: - Properties
     let iat: Date = .init()
     var exp: Date { return Date(timeInterval: 60 * 10, since: iat) }
