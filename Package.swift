@@ -53,5 +53,9 @@ let package = Package(
             name: "GitHubAppsTokenTests",
             dependencies: ["GitHubAppsToken"]
         ),
+        .testTarget(
+            name: "GitHubAppsTests",
+            dependencies: ["GitHubApps"]
+        ),
     ]
 )
