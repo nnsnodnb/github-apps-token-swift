@@ -44,7 +44,7 @@ private extension GitHubApps {
         let jwtToken = try jwtCreator.generate()
         let installations = try await githubAppsRepository.fetchInstallationApps(jwtToken: jwtToken)
         guard let installation = installations.first(where: { $0.account.login == owner }) else {
-            fatalError() // TODO: throw にする
+            throw Error.notFoundInstallation
         }
         return installation
     }
@@ -62,5 +62,20 @@ private extension GitHubApps {
             permission: permission
         )
         return accessToken
+    }
+}
+
+// MARK: - Error
+public extension GitHubApps {
+    enum Error: Swift.Error, CustomStringConvertible {
+        case notFoundInstallation
+
+        // MARK: - Properties
+        public var description: String {
+            switch self {
+            case .notFoundInstallation:
+                return "指定したユーザのInstallationが見つかりません"
+            }
+        }
     }
 }

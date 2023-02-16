@@ -8,7 +8,6 @@
 import Entities
 import Foundation
 import JWTKit
-import SwiftJWT
 
 public final class JWTCreator: JWTCreatable {
     // MARK: - Properties
