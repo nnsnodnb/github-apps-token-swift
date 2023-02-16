@@ -15,6 +15,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/ishkawa/APIKit.git", .upToNextMajor(from: "5.4.0")),
         .package(url: "https://github.com/vapor/jwt-kit.git", .upToNextMajor(from: "4.8.0")),
+        .package(url: "https://github.com/kateinoigakukun/StubKit.git", .upToNextMajor(from: "0.1.7")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.2.2")),
         .package(url: "https://github.com/pointfreeco/swift-tagged.git", .upToNextMajor(from: "0.10.0")),
     ],
@@ -37,6 +38,7 @@ let package = Package(
             dependencies: [
                 .product(name: "APIKit", package: "APIKit"),
                 .product(name: "JWTKit", package: "jwt-kit"),
+                .product(name: "StubKit", package: "StubKit"),
                 "Entities",
                 "GitHubAppsAPI",
             ]

@@ -10,7 +10,7 @@ import Foundation
 import JWTKit
 import XCTest
 
-final class TestJWTCreator: XCTestCase {
+final class JWTCreatorTests: XCTestCase {
     func testGenerate() throws {
         guard let privateKeyURL = Bundle.module.url(forResource: "dummy", withExtension: "pem") else {
             XCTFail("Not found dummy.pem in resource.")
