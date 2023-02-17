@@ -5,7 +5,6 @@ import PackageDescription
 
 let package = Package(
     name: "GitHubAppsToken",
-    platforms: [.macOS(.v12)],
     products: [
         .executable(
             name: "github-apps-token",
