@@ -1,5 +1,5 @@
 //
-//  TestJWTCreator.swift
+//  GitHubAppsTokenCLITests.swift
 //
 //
 //  Created by Yuya Oka on 2023/02/16.
@@ -9,7 +9,7 @@ import ArgumentParser
 import GitHubApps
 import XCTest
 
-final class GitHubAppsTokenTests: XCTestCase {
+final class GitHubAppsTokenCLITests: XCTestCase {
     func testVersion() throws {
         let pipe = Pipe()
         let process = process(
@@ -28,7 +28,7 @@ final class GitHubAppsTokenTests: XCTestCase {
 }
 
 // MARK: - Private
-private extension GitHubAppsTokenTests {
+private extension GitHubAppsTokenCLITests {
     static var productsDirectory: URL {
         for bundle in Bundle.allBundles where bundle.bundlePath.hasSuffix(".xctest") {
             return bundle.bundleURL.deletingLastPathComponent()

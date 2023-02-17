@@ -9,7 +9,7 @@ let package = Package(
     products: [
         .executable(
             name: "github-apps-token",
-            targets: ["GitHubAppsToken"]
+            targets: ["GitHubAppsTokenCLI"]
         )
     ],
     dependencies: [
@@ -21,7 +21,7 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "GitHubAppsToken",
+            name: "GitHubAppsTokenCLI",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "GitHubApps",
@@ -52,8 +52,8 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "GitHubAppsTokenTests",
-            dependencies: ["GitHubAppsToken"]
+            name: "GitHubAppsTokenCLITests",
+            dependencies: ["GitHubAppsTokenCLI"]
         ),
         .testTarget(
             name: "GitHubAppsTests",

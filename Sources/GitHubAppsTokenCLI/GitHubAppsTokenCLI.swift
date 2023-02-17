@@ -4,7 +4,7 @@ import Foundation
 import GitHubApps
 
 @main
-struct GitHubAppsToken: AsyncParsableCommand {
+struct GitHubAppsTokenCLI: AsyncParsableCommand {
     // MARK: - Properties
     static var configuration: CommandConfiguration = {
         .init(
@@ -16,7 +16,7 @@ struct GitHubAppsToken: AsyncParsableCommand {
 }
 
 // MARK: - Subcommand
-extension GitHubAppsToken {
+extension GitHubAppsTokenCLI {
     struct Create: AsyncParsableCommand {
         // MARK: - Properties
         static let configuration: CommandConfiguration = .init(abstract: "アクセストークンを作成します")
@@ -86,7 +86,7 @@ extension GitHubAppsToken {
 }
 
 // MARK: - Create
-extension GitHubAppsToken.Create {
+extension GitHubAppsTokenCLI.Create {
     func run() async throws {
         let jwtGenerator = try JWTGenerator(appID: appID, privateKey: privateKey)
         let apiClient = APIClient()
@@ -149,7 +149,7 @@ extension GitHubAppsToken.Create {
 }
 
 // MARK: - Revoke
-extension GitHubAppsToken.Revoke {
+extension GitHubAppsTokenCLI.Revoke {
     func run() async throws {
         let apiClient = APIClient()
         let githubAppsRepository = GitHubAppsRepository(apiClient: apiClient)
