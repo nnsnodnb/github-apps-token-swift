@@ -51,25 +51,232 @@ extension GitHubAppsTokenCLI {
 
         @Option(
             name: .long,
-            help: "書き込みが必要な権限のリスト",
-            completion: .list([]),
-            transform: {
-                guard let permissionType = PermissionType(rawValue: $0) else { throw PermissionType.Error.unknown }
-                return permissionType
-            }
+            help: "actionsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
-        private(set) var write: [PermissionType] = []
+        private(set) var actions: Permission.Level?
 
         @Option(
             name: .long,
-            help: "読み込みが必要な権限のリスト",
-            completion: .list([]),
-            transform: {
-                guard let permissionType = PermissionType(rawValue: $0) else { throw PermissionType.Error.unknown }
-                return permissionType
-            }
+            help: "administrationの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
-        private(set) var read: [PermissionType] = []
+        private(set) var administration: Permission.Level?
+
+        @Option(
+            name: .long,
+            help: "checksの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var checks: Permission.Level?
+
+        @Option(
+            name: .long,
+            help: "contentsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var contents: Permission.Level?
+
+        @Option(
+            name: .long,
+            help: "deploymentsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var deployments: Permission.Level?
+
+        @Option(
+            name: .long,
+            help: "environmentsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var environments: Permission.Level?
+
+        @Option(
+            name: .long,
+            help: "issuesの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var issues: Permission.Level?
+
+        @Option(
+            name: .long,
+            help: "metadataの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var metadata: Permission.Level?
+
+        @Option(
+            name: .long,
+            help: "packagesの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var packages: Permission.Level?
+
+        @Option(
+            name: .long,
+            help: "pagesの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var pages: Permission.Level?
+
+        @Option(
+            name: .customLong("pull_requests"),
+            help: "pull_requestsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var pullRequests: Permission.Level?
+
+        @Option(
+            name: .customLong("repository_announcement_banners"),
+            help: "repository_announcement_bannersの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var repositoryAnnouncementBanners: Permission.Level?
+
+        @Option(
+            name: .customLong("repository_hooks"),
+            help: "repository_hooksの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var repositoryHooks: Permission.Level?
+
+        @Option(
+            name: .customLong("repository_projects"),
+            help: "repository_projectsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var repositoryProjects: Permission.Level?
+
+        @Option(
+            name: .customLong("secret_scanning_alerts"),
+            help: "secret_scanning_alertsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: false) }
+        )
+        private(set) var secretScanningAlerts: Permission.Level?
+
+        @Option(
+            name: .customLong("secrets"),
+            help: "secretsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var secrets: Permission.Level?
+
+        @Option(
+            name: .customLong("security_events"),
+            help: "security_eventsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var securityEvents: Permission.Level?
+
+        @Option(
+            name: .customLong("single_file"),
+            help: "single_fileの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var singleFile: Permission.Level?
+
+        @Option(
+            name: .customLong("statuses"),
+            help: "statusesの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var statuses: Permission.Level?
+
+        @Option(
+            name: .customLong("vulnerability_alerts"),
+            help: "vulnerability_alersの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var vulnerabilityAlerts: Permission.Level?
+
+        @Flag(
+            name: .long,
+            help: "workflowsの書き込み権限"
+        )
+        private(set) var hasWriteAccessWorkflows = false
+
+        @Option(
+            name: .customLong("members"),
+            help: "membersの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var members: Permission.Level?
+
+        @Option(
+            name: .customLong("organization_administration"),
+            help: "organization_administrationの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var organizationAdministration: Permission.Level?
+
+        @Option(
+            name: .customLong("organization_custom_roles"),
+            help: "organization_custom_rolesの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var organizationCustomRoles: Permission.Level?
+
+        @Option(
+            name: .customLong("organization_announcement_banners"),
+            help: "organization_announcement_bannersの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var organizationAnnouncementBanners: Permission.Level?
+
+        @Option(
+            name: .customLong("organization_hooks"),
+            help: "organization_hooksの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var organizationHooks: Permission.Level?
+
+        @Flag(
+            name: .customLong("organization_plan"),
+            help: "organization_planの読み取り権限"
+        )
+        private(set) var hasReadAccessOrganizationPlan = false
+
+        @Option(
+            name: .customLong("organization_projects"),
+            help: "organization_projectsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: false) }
+        )
+        private(set) var organizationProjects: Permission.Level?
+
+        @Option(
+            name: .customLong("organization_packages"),
+            help: "organization_packagesの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var organizationPackages: Permission.Level?
+
+        @Option(
+            name: .customLong("organization_secrets"),
+            help: "organization_secretsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var organizationSecrets: Permission.Level?
+
+        @Option(
+            name: .customLong("organization_self_hosted_runners"),
+            help: "organization_self_hosted_runnersの権限",
+            transform: Permission.Level.init(rawValue:)
+        )
+        private(set) var organizationSelfHostedRunners: Permission.Level?
+
+        @Option(
+            name: .customLong("organizationUserBlocking"),
+            help: "organization_user_blockingの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var organizationUserBlocking: Permission.Level?
+
+        @Option(
+            name: .customLong("team_discussions"),
+            help: "team_discussionsの権限",
+            transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
+        )
+        private(set) var teamDiscussions: Permission.Level?
     }
 
     struct Revoke: AsyncParsableCommand {
@@ -99,52 +306,40 @@ extension GitHubAppsTokenCLI.Create {
     }
 
     private func makePermission() -> Permission {
-        // permission
-        let readOnly = read.filter { !write.contains($0) }
-        // contents
-        let contents: Permission.Level?
-        if write.contains(.contents) {
-            contents = .write
-        } else if readOnly.contains(.contents) {
-            contents = .read
-        } else {
-            contents = nil
-        }
-        // statuses
-        let statuses: Permission.Level?
-        if write.contains(.statuses) {
-            statuses = .write
-        } else if readOnly.contains(.statuses) {
-            statuses = .read
-        } else {
-            statuses = nil
-        }
-        // pull_requests
-        let pullRequests: Permission.Level?
-        if write.contains(.pullRequests) {
-            pullRequests = .write
-        } else if readOnly.contains(.pullRequests) {
-            pullRequests = .read
-        } else {
-            pullRequests = nil
-        }
-        // issues
-        let issues: Permission.Level?
-        if write.contains(.issues) {
-            issues = .write
-        } else if readOnly.contains(.issues) {
-            issues = .read
-        } else {
-            issues = nil
-        }
-
-        let permission = Permission(
+        return Permission(
+            actions: actions,
+            administration: administration,
+            checks: checks,
             contents: contents,
-            statuses: statuses,
+            deployments: deployments,
+            environments: environments,
+            issues: issues,
+            packages: packages,
+            pages: pages,
             pullRequests: pullRequests,
-            issues: issues
+            repositoryAnnouncementBanners: repositoryAnnouncementBanners,
+            repositoryHooks: repositoryHooks,
+            repositoryProjects: repositoryProjects,
+            secretScanningAlerts: secretScanningAlerts,
+            secrets: secrets,
+            securityEvents: securityEvents,
+            singleFile: singleFile,
+            statuses: statuses,
+            vulnerabilityAlerts: vulnerabilityAlerts,
+            workflows: hasWriteAccessWorkflows ? .write : nil,
+            members: members,
+            organizationAdministration: organizationAdministration,
+            organizationCustomRoles: organizationCustomRoles,
+            organizationAnnouncementBanners: organizationAnnouncementBanners,
+            organizationHooks: organizationHooks,
+            organizationPlan: hasReadAccessOrganizationPlan ? .read : nil,
+            organizationProjects: organizationProjects,
+            organizationPackages: organizationPackages,
+            organizationSecrets: organizationSecrets,
+            organizationSelfHostedRunners: organizationSelfHostedRunners,
+            organizationUserBlocking: organizationUserBlocking,
+            teamDiscussions: teamDiscussions
         )
-        return permission
     }
 }
 
