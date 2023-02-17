@@ -9,6 +9,7 @@ import APIKit
 import Entities
 import Foundation
 
+// https://docs.github.com/en/rest/apps/installations#revoke-an-installation-access-token
 public extension GitHubAppsAPI.Installation.Revoke {
     struct Delete: GitHubRequestType {
         // MARK: - Response

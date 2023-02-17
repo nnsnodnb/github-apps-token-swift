@@ -9,6 +9,7 @@ import APIKit
 import Entities
 import Foundation
 
+// https://docs.github.com/en/rest/reference/apps#get-a-repository-installation-for-the-authenticated-app
 public extension GitHubAppsAPI.App.Installation {
     struct List: GitHubAuthorizeRequestType {
         // MARK: - Response

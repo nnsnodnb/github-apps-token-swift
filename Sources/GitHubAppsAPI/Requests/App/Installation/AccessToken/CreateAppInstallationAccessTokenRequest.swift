@@ -9,6 +9,7 @@ import APIKit
 import Entities
 import Foundation
 
+// https://docs.github.com/en/rest/apps/apps#create-an-installation-access-token-for-an-app
 public extension GitHubAppsAPI.App.Installation.AccessToken {
     struct Create: GitHubAuthorizeRequestType {
         // MARK: - Response
