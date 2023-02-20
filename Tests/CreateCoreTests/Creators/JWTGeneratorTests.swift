@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import GitHubApps
+@testable import CreateCore
 import JWTKit
 import XCTest
 

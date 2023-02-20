@@ -6,19 +6,19 @@
 //
 
 import Foundation
-@testable import GitHubApps
+@testable import CreateCore
 import XCTest
 
 final class GitHubAppsTests: XCTestCase {
     func testCreateAccessToken() async throws {
         let jwtGenerator = StubJWTGenerator()
         let githubAppsRepository = StubGitHubAppsRepository()
-        let apps = GitHubApps(
+        let core = CreateCore(
             jwtGenerator: jwtGenerator,
             githubAppsRepository: githubAppsRepository
         )
 
-        let accessToken = try await apps.createAccessToken(
+        let accessToken = try await core.createAccessToken(
             for: "dummy",
             repositories: [.init("dummy_repository")],
             permission: .init(contents: .read)

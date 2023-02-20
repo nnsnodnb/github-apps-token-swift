@@ -24,7 +24,7 @@ let package = Package(
             name: "GitHubAppsTokenCLI",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                "GitHubApps",
+                "CreateCore",
                 "GitHubAppsAPI",
                 "GitHubInstallation",
             ]
@@ -36,9 +36,8 @@ let package = Package(
             ]
         ),
         .target(
-            name: "GitHubApps",
+            name: "CreateCore",
             dependencies: [
-                .product(name: "APIKit", package: "APIKit"),
                 .product(name: "JWTKit", package: "jwt-kit"),
                 .product(name: "StubKit", package: "StubKit"),
                 "Entities",
@@ -65,9 +64,9 @@ let package = Package(
             dependencies: ["GitHubAppsTokenCLI"]
         ),
         .testTarget(
-            name: "GitHubAppsTests",
+            name: "CreateCoreTests",
             dependencies: [
-                "GitHubApps",
+                "CreateCore",
             ],
             resources: [.process("Resources")]
         ),

@@ -1,5 +1,5 @@
 //
-//  GitHubApps.swift
+//  CreateCore.swift
 //  
 //
 //  Created by Yuya Oka on 2023/02/14.
@@ -8,7 +8,7 @@
 import Entities
 import Foundation
 
-public struct GitHubApps {
+public struct CreateCore {
     // MARK: - Properties
     public static let version = "1.0.0"
 
@@ -41,7 +41,7 @@ public struct GitHubApps {
 }
 
 // MARK: - Private method
-private extension GitHubApps {
+private extension CreateCore {
     func getInstallation(for owner: String) async throws -> Installation {
         let jwtToken = try jwtGenerator.generate()
         let installations = try await githubAppsRepository.fetchInstallationApps(jwtToken: jwtToken)
@@ -68,7 +68,7 @@ private extension GitHubApps {
 }
 
 // MARK: - Error
-public extension GitHubApps {
+public extension CreateCore {
     enum Error: Swift.Error, CustomStringConvertible {
         case notFoundInstallation
 

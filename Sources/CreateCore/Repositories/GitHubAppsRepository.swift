@@ -17,7 +17,6 @@ public protocol GitHubAppsRepositoryProtocol {
         repositories: [Repository],
         permission: Permission
     ) async throws -> AccessToken
-    func revokeAccessToken(_ accessToken: AccessToken.Token) async throws
 }
 
 public final class GitHubAppsRepository: GitHubAppsRepositoryProtocol {
@@ -46,11 +45,6 @@ public final class GitHubAppsRepository: GitHubAppsRepositoryProtocol {
             repositories: repositories,
             permission: permission
         )
-        return try await apiClient.response(for: request)
-    }
-
-    public func revokeAccessToken(_ accessToken: AccessToken.Token) async throws {
-        let request = GitHubAppsAPI.Installation.Revoke.Delete(accessToken: accessToken)
         return try await apiClient.response(for: request)
     }
 }

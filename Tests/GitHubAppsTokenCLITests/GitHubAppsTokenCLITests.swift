@@ -6,7 +6,7 @@
 //
 
 import ArgumentParser
-import GitHubApps
+@testable import CreateCore
 import XCTest
 
 final class GitHubAppsTokenCLITests: XCTestCase {
@@ -23,7 +23,7 @@ final class GitHubAppsTokenCLITests: XCTestCase {
 
         let version = try XCTUnwrap(pipe.readStandardOutput())
 
-        XCTAssertEqual(version, GitHubApps.version)
+        XCTAssertEqual(version, CreateCore.version)
     }
 }
 

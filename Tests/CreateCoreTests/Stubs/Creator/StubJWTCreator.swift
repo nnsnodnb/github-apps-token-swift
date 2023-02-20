@@ -7,7 +7,7 @@
 
 import Entities
 import Foundation
-@testable import GitHubApps
+@testable import CreateCore
 
 struct StubJWTGenerator: JWTGeneratorable {
     // MARK: - Properties

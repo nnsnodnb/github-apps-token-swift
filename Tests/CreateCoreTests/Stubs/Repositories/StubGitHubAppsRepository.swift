@@ -7,7 +7,7 @@
 
 import Entities
 import Foundation
-@testable import GitHubApps
+@testable import CreateCore
 import StubKit
 import XCTest
 
@@ -33,8 +33,5 @@ final class StubGitHubAppsRepository: GitHubAppsRepositoryProtocol {
             $0.set(\.token, value: "dummy_access_token")
         }
         return accessToken
-    }
-
-    func revokeAccessToken(_ accessToken: AccessToken.Token) async throws {
     }
 }

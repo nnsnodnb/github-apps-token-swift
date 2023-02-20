@@ -1,7 +1,7 @@
 import ArgumentParser
+import CreateCore
 import Entities
 import Foundation
-import GitHubApps
 import GitHubInstallation
 
 @main
@@ -10,7 +10,7 @@ struct GitHubAppsTokenCLI: AsyncParsableCommand {
     static var configuration: CommandConfiguration = {
         .init(
             commandName: "github-apps-token",
-            version: GitHubApps.version,
+            version: CreateCore.version,
             subcommands: [Create.self, Revoke.self]
         )
     }()
@@ -299,10 +299,10 @@ extension GitHubAppsTokenCLI.Create {
         let jwtGenerator = try JWTGenerator(appID: appID, privateKey: privateKey)
         let apiClient = APIClient()
         let githubAppsRepository = GitHubAppsRepository(apiClient: apiClient)
-        let apps = GitHubApps(jwtGenerator: jwtGenerator, githubAppsRepository: githubAppsRepository)
+        let core = CreateCore(jwtGenerator: jwtGenerator, githubAppsRepository: githubAppsRepository)
         let permission = makePermission()
 
-        let accessToken = try await apps.createAccessToken(for: owner, repositories: repositories, permission: permission)
+        let accessToken = try await core.createAccessToken(for: owner, repositories: repositories, permission: permission)
         print(accessToken.token.rawValue)
     }
 
