@@ -36,10 +36,10 @@ extension GitHubAppsTokenCLI {
         private(set) var privateKey: URL
 
         @Option(
-            name: .shortAndLong,
-            help: "GitHubユーザ名"
+            name: .long,
+            help: "リポジトリの所有者"
         )
-        private(set) var user: String
+        private(set) var owner: String
 
         @Option(
             name: .shortAndLong,
@@ -301,7 +301,7 @@ extension GitHubAppsTokenCLI.Create {
         let apps = GitHubApps(jwtGenerator: jwtGenerator, githubAppsRepository: githubAppsRepository)
         let permission = makePermission()
 
-        let accessToken = try await apps.createAccessToken(for: user, repositories: repositories, permission: permission)
+        let accessToken = try await apps.createAccessToken(for: owner, repositories: repositories, permission: permission)
         print(accessToken.token.rawValue)
     }
 
