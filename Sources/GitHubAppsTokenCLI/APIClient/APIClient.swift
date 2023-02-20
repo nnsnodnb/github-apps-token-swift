@@ -9,7 +9,7 @@ import APIKit
 import Foundation
 import GitHubAppsAPI
 
-public final class APIClient {
+public final class APIClient: APIClientProtocol {
     // MARK: - Properties
     private let session: Session
 

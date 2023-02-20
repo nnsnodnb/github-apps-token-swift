@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import GitHubAppsAPI
 
 public protocol APIClientProtocol {
     func response<Request: GitHubRequestType>(for request: Request) async throws -> Request.Response

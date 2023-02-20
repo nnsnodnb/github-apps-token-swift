@@ -25,6 +25,8 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "GitHubApps",
+                "GitHubAppsAPI",
+                "GitHubInstallation",
             ]
         ),
         .target(
@@ -39,6 +41,13 @@ let package = Package(
                 .product(name: "APIKit", package: "APIKit"),
                 .product(name: "JWTKit", package: "jwt-kit"),
                 .product(name: "StubKit", package: "StubKit"),
+                "Entities",
+                "GitHubAppsAPI",
+            ]
+        ),
+        .target(
+            name: "GitHubInstallation",
+            dependencies: [
                 "Entities",
                 "GitHubAppsAPI",
             ]
