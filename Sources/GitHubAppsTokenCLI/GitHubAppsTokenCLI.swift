@@ -265,7 +265,7 @@ extension GitHubAppsTokenCLI {
         private(set) var organizationSelfHostedRunners: Permission.Level?
 
         @Option(
-            name: .customLong("organizationUserBlocking"),
+            name: .customLong("organization_user_blocking"),
             help: "organization_user_blockingの権限",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
