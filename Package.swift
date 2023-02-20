@@ -24,7 +24,15 @@ let package = Package(
             name: "GitHubAppsTokenCLI",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                "Entities",
+                "GitHubAppsTokenCore",
+            ]
+        ),
+        .target(
+            name: "GitHubAppsTokenCore",
+            dependencies: [
                 "CreateCore",
+                "Entities",
                 "GitHubAppsAPI",
                 "RevokeCore",
             ]

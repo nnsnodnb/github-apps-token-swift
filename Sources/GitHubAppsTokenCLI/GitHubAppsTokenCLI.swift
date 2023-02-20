@@ -1,8 +1,7 @@
 import ArgumentParser
-import CreateCore
 import Entities
 import Foundation
-import RevokeCore
+import GitHubAppsTokenCore
 
 @main
 struct GitHubAppsTokenCLI: AsyncParsableCommand {
@@ -10,7 +9,7 @@ struct GitHubAppsTokenCLI: AsyncParsableCommand {
     static var configuration: CommandConfiguration = {
         .init(
             commandName: "github-apps-token",
-            version: CreateCore.version,
+            version: GitHubAppsTokenCore.version,
             subcommands: [Create.self, Revoke.self]
         )
     }()
@@ -289,21 +288,22 @@ extension GitHubAppsTokenCLI {
             help: "取り消すアクセストークン",
             transform: AccessToken.Token.init(rawValue:)
         )
-        private(set) var acccessToken: AccessToken.Token
+        private(set) var accessToken: AccessToken.Token
     }
 }
 
 // MARK: - Create
 extension GitHubAppsTokenCLI.Create {
     func run() async throws {
-        let jwtGenerator = try JWTGenerator(appID: appID, privateKey: privateKey)
-        let apiClient = APIClient()
-        let githubAppsRepository = GitHubAppsRepository(apiClient: apiClient)
-        let core = CreateCore(jwtGenerator: jwtGenerator, githubAppsRepository: githubAppsRepository)
-        let permission = makePermission()
+        let token = try await GitHubAppsTokenCore.create(
+            appID: appID,
+            privateKey: privateKey,
+            owner: owner,
+            repositories: repositories,
+            permission: makePermission()
+        )
+        print(token.rawValue)
 
-        let accessToken = try await core.createAccessToken(for: owner, repositories: repositories, permission: permission)
-        print(accessToken.token.rawValue)
     }
 
     private func makePermission() -> Permission {
@@ -347,9 +347,6 @@ extension GitHubAppsTokenCLI.Create {
 // MARK: - Revoke
 extension GitHubAppsTokenCLI.Revoke {
     func run() async throws {
-        let apiClient = APIClient()
-        let githubInstallationRepository = GitHubInstallationRepository(apiClient: apiClient)
-        let core = RevokeCore(githubInstallationRepository: githubInstallationRepository)
-        try await core.revokeAccessToken(acccessToken)
+        try await GitHubAppsTokenCore.revoke(with: accessToken)
     }
 }

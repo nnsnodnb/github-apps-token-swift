@@ -10,8 +10,6 @@ import Foundation
 
 public struct CreateCore {
     // MARK: - Properties
-    public static let version = "1.0.0"
-
     private let jwtGenerator: any JWTGeneratorable
     private let githubAppsRepository: any GitHubAppsRepositoryProtocol
 
