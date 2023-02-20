@@ -26,7 +26,7 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "CreateCore",
                 "GitHubAppsAPI",
-                "GitHubInstallation",
+                "RevokeCore",
             ]
         ),
         .target(
@@ -45,7 +45,7 @@ let package = Package(
             ]
         ),
         .target(
-            name: "GitHubInstallation",
+            name: "RevokeCore",
             dependencies: [
                 "Entities",
                 "GitHubAppsAPI",

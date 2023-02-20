@@ -1,5 +1,5 @@
 //
-//  GitHubInstallation.swift
+//  RevokeCore.swift
 //  
 //
 //  Created by Yuya Oka on 2023/02/20.
@@ -9,7 +9,7 @@ import Entities
 import Foundation
 import GitHubAppsAPI
 
-public struct GitHubInstallation {
+public struct RevokeCore {
     // MARK: - Properties
     private let githubInstallationRepository: any GitHubInstallationRepositoryProtocol
 

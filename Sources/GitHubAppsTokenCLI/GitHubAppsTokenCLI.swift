@@ -2,7 +2,7 @@ import ArgumentParser
 import CreateCore
 import Entities
 import Foundation
-import GitHubInstallation
+import RevokeCore
 
 @main
 struct GitHubAppsTokenCLI: AsyncParsableCommand {
@@ -349,7 +349,7 @@ extension GitHubAppsTokenCLI.Revoke {
     func run() async throws {
         let apiClient = APIClient()
         let githubInstallationRepository = GitHubInstallationRepository(apiClient: apiClient)
-        let installation = GitHubInstallation(githubInstallationRepository: githubInstallationRepository)
-        try await installation.revokeAccessToken(acccessToken)
+        let core = RevokeCore(githubInstallationRepository: githubInstallationRepository)
+        try await core.revokeAccessToken(acccessToken)
     }
 }
