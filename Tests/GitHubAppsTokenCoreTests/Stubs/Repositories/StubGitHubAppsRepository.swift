@@ -7,7 +7,7 @@
 
 import Entities
 import Foundation
-@testable import CreateCore
+@testable import GitHubAppsTokenCore
 import StubKit
 import XCTest
 

@@ -1,15 +1,18 @@
 //
-//  RevokeCore.swift
+//  GitHubInstallationUsecase.swift
 //  
 //
-//  Created by Yuya Oka on 2023/02/20.
+//  Created by Yuya Oka on 2023/02/21.
 //
 
 import Entities
 import Foundation
-import GitHubAppsAPI
 
-public struct RevokeCore {
+protocol GitHubInstallationUsecaseProtocol {
+    func revokeAccessToken(_ accessToken: AccessToken.Token) async throws
+}
+
+final class GitHubInstallationUsecase: GitHubInstallationUsecaseProtocol {
     // MARK: - Properties
     private let githubInstallationRepository: any GitHubInstallationRepositoryProtocol
 
@@ -18,7 +21,7 @@ public struct RevokeCore {
         self.githubInstallationRepository = githubInstallationRepository
     }
 
-    public func revokeAccessToken(_ accessToken: AccessToken.Token) async throws {
+    func revokeAccessToken(_ accessToken: AccessToken.Token) async throws {
         try await githubInstallationRepository.revokeAccessToken(accessToken)
     }
 }

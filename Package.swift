@@ -31,32 +31,15 @@ let package = Package(
         .target(
             name: "GitHubAppsTokenCore",
             dependencies: [
-                "CreateCore",
+                .product(name: "JWTKit", package: "jwt-kit"),
                 "Entities",
                 "GitHubAppsAPI",
-                "RevokeCore",
             ]
         ),
         .target(
             name: "Entities",
             dependencies: [
                 .product(name: "Tagged", package: "swift-tagged"),
-            ]
-        ),
-        .target(
-            name: "CreateCore",
-            dependencies: [
-                .product(name: "JWTKit", package: "jwt-kit"),
-                .product(name: "StubKit", package: "StubKit"),
-                "Entities",
-                "GitHubAppsAPI",
-            ]
-        ),
-        .target(
-            name: "RevokeCore",
-            dependencies: [
-                "Entities",
-                "GitHubAppsAPI",
             ]
         ),
         .target(
@@ -69,12 +52,15 @@ let package = Package(
         ),
         .testTarget(
             name: "GitHubAppsTokenCLITests",
-            dependencies: ["GitHubAppsTokenCLI"]
+            dependencies: [
+                "GitHubAppsTokenCLI",
+            ]
         ),
         .testTarget(
-            name: "CreateCoreTests",
+            name: "GitHubAppsTokenCoreTests",
             dependencies: [
-                "CreateCore",
+                .product(name: "StubKit", package: "StubKit"),
+                "GitHubAppsTokenCore",
             ],
             resources: [.process("Resources")]
         ),

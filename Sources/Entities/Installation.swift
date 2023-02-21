@@ -24,3 +24,18 @@ public struct Installation: Decodable {
         case repositorySelection = "repository_selection"
     }
 }
+
+// MARK: - Error
+public extension Installation {
+    enum Error: Swift.Error, CustomStringConvertible {
+        case notFound
+
+        // MARK: - Properties
+        public var description: String {
+            switch self {
+            case .notFound:
+                return "Installationが見つかりません"
+            }
+        }
+    }
+}
