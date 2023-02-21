@@ -8,7 +8,7 @@
 import Foundation
 import Tagged
 
-public struct AccessToken: Decodable {
+public struct AccessToken: Decodable, Equatable {
     // MARK: - Tagged
     public typealias Token = Tagged<Self, String>
 

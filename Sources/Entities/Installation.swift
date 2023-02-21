@@ -8,7 +8,7 @@
 import Foundation
 import Tagged
 
-public struct Installation: Decodable {
+public struct Installation: Decodable, Equatable {
     // MARK: - Tagged
     public typealias ID = Tagged<Self, Int>
 
