@@ -16,8 +16,8 @@ final class JWTGeneratorTests: XCTestCase {
             XCTFail("Not found dummy.pem in resource.")
             return
         }
-        let jwtCreator = try JWTGenerator(appID: "dummy", privateKey: privateKeyURL)
-        let token = try jwtCreator.generate()
+        let jwtGenerator = try JWTGenerator(appID: "dummy", privateKey: privateKeyURL)
+        let token = try jwtGenerator.generate()
 
         guard let publicKeyURL = Bundle.module.url(forResource: "dummy", withExtension: "pub") else {
             XCTFail("Not found dummy.pub in resource.")
