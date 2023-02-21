@@ -105,7 +105,7 @@ OPTIONS:
 $ github-apps-token create \
     --app-id 123456 \
     --private-key /path/to/privatekey.pem \
-    --user your_github_username \
+    --owner your_github_username \
     --repositories repository_1 \
     --repositories repository_2 \
     --contents read \
