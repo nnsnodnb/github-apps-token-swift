@@ -136,3 +136,7 @@ $ github-apps-token revoke --token ghs_Hqu93EIWNm5HS8DPxuQiKABWOAsKlB3k6tYV
 ```
 
 </details>
+
+## License
+
+This software is licensed under the MIT License (See [LICENSE](LICENSE)).
