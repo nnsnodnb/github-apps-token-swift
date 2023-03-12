@@ -1,0 +1,25 @@
+name: Make artifactbundle
+
+on:
+  push:
+    branches: main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: swiftty/swiftpm-artifactbundle-builder@v1
+        with:
+          swift-version: "5.7"
+          depth: 1
+
+  artifact:
+    needs:
+    - build
+
+    steps:
+      - uses: swiftty/swiftpm-artifactbundle-bundler@v1
+        with:
+          variants-version: ${{ github.ref_name }}
