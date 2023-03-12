@@ -20,6 +20,8 @@ jobs:
     needs:
     - build
 
+    runs-on: ubuntu-latest
+
     steps:
       - uses: swiftty/swiftpm-artifactbundle-bundler@v1
         with:
