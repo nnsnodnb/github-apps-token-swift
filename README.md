@@ -1,6 +1,6 @@
 # GitHubAppsToken
 
-GitHub Apps を通じて必要なときにアクセストークンをリポジトリごとに付与するコマンドラインツール
+Command line tool to grant access tokens to each repository when needed via GitHub Apps.
 
 ## Usage
 
@@ -13,93 +13,92 @@ OPTIONS:
   -h, --help              Show help information.
 
 SUBCOMMANDS:
-  create                  アクセストークンを作成します
-  revoke                  アクセストークンを取り消します
+  create                  Create an access token.
+  revoke                  Revoke an access token.
 
   See 'github-apps-token help <subcommand>' for detailed help.
 ```
 
-`github-apps-token` に `create` と `revoke` のサブコマンドを選択します
+Choose the `create` and `revoke` subcommands for `github-apps-token`.
 
-### アクセストークンの生成
+### Create an access token
 
 ```command
-$ github-apps-token create --help
-OVERVIEW: アクセストークンを作成します
+OVERVIEW: Create an access token.
 
 USAGE: github-apps-token create [<options>] --app-id <app-id> --private-key <private-key> --owner <owner> --repositories <repositories> ... --organization_self_hosted_runners <organization_self_hosted_runners>
 
 OPTIONS:
-  -a, --app-id <app-id>   GitHub AppsのアプリID
+  -a, --app-id <app-id>   The App ID of GitHub Apps.
   -p, --private-key <private-key>
-                          GitHub Appsの秘密鍵
-  --owner <owner>         リポジトリの所有者
+                          The private key of GitHub Apps.
+  --owner <owner>         Owner of repositories
   -r, --repositories <repositories>
-                          権限が必要なリポジトリのリスト
-  --actions <actions>     actionsの権限
+                          List of repositories that need permissions.
+  --actions <actions>     The permission of actions.
   --administration <administration>
-                          administrationの権限
-  --checks <checks>       checksの権限
-  --contents <contents>   contentsの権限
+                          The permission of administration.
+  --checks <checks>       The permission of checks.
+  --contents <contents>   The permissions of contents.
   --deployments <deployments>
-                          deploymentsの権限
+                          The permission of deployments.
   --environments <environments>
-                          environmentsの権限
-  --issues <issues>       issuesの権限
-  --metadata <metadata>   metadataの権限
-  --packages <packages>   packagesの権限
-  --pages <pages>         pagesの権限
+                          The permission of environments.
+  --issues <issues>       The permission of issues.
+  --metadata <metadata>   The permission of metadata.
+  --packages <packages>   The permission of packages.
+  --pages <pages>         The permission of pages.
   --pull_requests <pull_requests>
-                          pull_requestsの権限
+                          The permission of pull_requests.
   --repository_announcement_banners <repository_announcement_banners>
-                          repository_announcement_bannersの権限
+                          The permission of repository_announcement_banners.
   --repository_hooks <repository_hooks>
-                          repository_hooksの権限
+                          The permission of repository_hooks.
   --repository_projects <repository_projects>
-                          repository_projectsの権限
+                          The permission of repository_projects.
   --secret_scanning_alerts <secret_scanning_alerts>
-                          secret_scanning_alertsの権限
-  --secrets <secrets>     secretsの権限
+                          The permission of secret_scanning_alerts.
+  --secrets <secrets>     The permission of secrets.
   --security_events <security_events>
-                          security_eventsの権限
+                          The permission of security_events.
   --single_file <single_file>
-                          single_fileの権限
-  --statuses <statuses>   statusesの権限
+                          The permission of single_file.
+  --statuses <statuses>   The permission of statuses.
   --vulnerability_alerts <vulnerability_alerts>
-                          vulnerability_alersの権限
+                          The permission of vulnerability_alers.
   --has-write-access-workflows
-                          workflowsの書き込み権限
-  --members <members>     membersの権限
+                          The write permission of workflows.
+  --members <members>     The permission of members.
   --organization_administration <organization_administration>
-                          organization_administrationの権限
+                          The permission of organization_administration.
   --organization_custom_roles <organization_custom_roles>
-                          organization_custom_rolesの権限
+                          The permission of organization_custom_roles.
   --organization_announcement_banners <organization_announcement_banners>
-                          organization_announcement_bannersの権限
+                          The permission of organization_announcement_banners.
   --organization_hooks <organization_hooks>
-                          organization_hooksの権限
-  --organization_plan     organization_planの読み取り権限
+                          The permission of organization_hooks.
+  --organization_plan     The read permission of organization_plan.
   --organization_projects <organization_projects>
-                          organization_projectsの権限
+                          The permission of organization_projects.
   --organization_packages <organization_packages>
-                          organization_packagesの権限
+                          The permission of organization_packages.
   --organization_secrets <organization_secrets>
-                          organization_secretsの権限
+                          The permission of organization_secrets.
   --organization_self_hosted_runners <organization_self_hosted_runners>
-                          organization_self_hosted_runnersの権限
+                          The permission of organization_self_hosted_runners.
   --organization_user_blocking <organization_user_blocking>
-                          organization_user_blockingの権限
+                          The permission of organization_user_blocking.
   --team_discussions <team_discussions>
-                          team_discussionsの権限
+                          The permission of team_discussions.
   --version               Show the version.
   -h, --help              Show help information.
 ```
 
 <details>
-<summary>サンプル</summary>
+<summary>Sample</summary>
 
-`your_github_username/repository_1` と `your_github_username/repository_2` に `contents` の読み取り権限， `pull_requests` に書き込み権限を与える  
-権限については[ドキュメント](https://docs.github.com/en/rest/overview/permissions-required-for-github-apps?apiVersion=2022-11-28)を参照
+Grants `your_github_username/repository_1` and `your_github_username/repository_2` read permission on `contents` and write permission on `pull_requests`.  
+See [documentation](https://docs.github.com/en/rest/overview/permissions-required-for-github-apps?apiVersion=2022-11-28) for permissions.
 
 ```command
 $ github-apps-token create \
@@ -115,22 +114,22 @@ ghs_Hqu93EIWNm5HS8DPxuQiKABWOAsKlB3k6tYV
 
 </details>
 
-### アクセストークンの取り消し
+### Revoke an access token
 
 ```command
 $ github-apps-token revoke --help
-OVERVIEW: アクセストークンを取り消します
+OVERVIEW: Revoke an access token.
 
 USAGE: github-apps-token revoke --token <token>
 
 OPTIONS:
-  -t, --token <token>     取り消すアクセストークン
+  -t, --token <token>     Access token to be revoked.
   --version               Show the version.
   -h, --help              Show help information.
 ```
 
 <details>
-<summary>サンプル</summary>
+<summary>Sample</summary>
 
 ```command
 $ github-apps-token revoke --token ghs_Hqu93EIWNm5HS8DPxuQiKABWOAsKlB3k6tYV

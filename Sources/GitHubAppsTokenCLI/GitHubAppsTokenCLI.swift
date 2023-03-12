@@ -19,17 +19,17 @@ struct GitHubAppsTokenCLI: AsyncParsableCommand {
 extension GitHubAppsTokenCLI {
     struct Create: AsyncParsableCommand {
         // MARK: - Properties
-        static let configuration: CommandConfiguration = .init(abstract: "アクセストークンを作成します")
+        static let configuration: CommandConfiguration = .init(abstract: "Create an access token.")
 
         @Option(
             name: .shortAndLong,
-            help: "GitHub AppsのアプリID"
+            help: "The App ID of GitHub Apps."
         )
         private(set) var appID: String
 
         @Option(
             name: .shortAndLong,
-            help: "GitHub Appsの秘密鍵",
+            help: "The private key of GitHub Apps.",
             completion: .file(extensions: ["pem"]),
             transform: URL.init(fileURLWithPath:)
         )
@@ -37,13 +37,13 @@ extension GitHubAppsTokenCLI {
 
         @Option(
             name: .long,
-            help: "リポジトリの所有者"
+            help: "Owner of repositories"
         )
         private(set) var owner: String
 
         @Option(
             name: .shortAndLong,
-            help: "権限が必要なリポジトリのリスト",
+            help: "List of repositories that need permissions.",
             completion: .list([]),
             transform: Repository.init(rawValue:)
         )
@@ -51,229 +51,229 @@ extension GitHubAppsTokenCLI {
 
         @Option(
             name: .long,
-            help: "actionsの権限",
+            help: "The permission of actions.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var actions: Permission.Level?
 
         @Option(
             name: .long,
-            help: "administrationの権限",
+            help: "The permission of administration.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var administration: Permission.Level?
 
         @Option(
             name: .long,
-            help: "checksの権限",
+            help: "The permission of checks.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var checks: Permission.Level?
 
         @Option(
             name: .long,
-            help: "contentsの権限",
+            help: "The permissions of contents.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var contents: Permission.Level?
 
         @Option(
             name: .long,
-            help: "deploymentsの権限",
+            help: "The permission of deployments.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var deployments: Permission.Level?
 
         @Option(
             name: .long,
-            help: "environmentsの権限",
+            help: "The permission of environments.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var environments: Permission.Level?
 
         @Option(
             name: .long,
-            help: "issuesの権限",
+            help: "The permission of issues.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var issues: Permission.Level?
 
         @Option(
             name: .long,
-            help: "metadataの権限",
+            help: "The permission of metadata.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var metadata: Permission.Level?
 
         @Option(
             name: .long,
-            help: "packagesの権限",
+            help: "The permission of packages.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var packages: Permission.Level?
 
         @Option(
             name: .long,
-            help: "pagesの権限",
+            help: "The permission of pages.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var pages: Permission.Level?
 
         @Option(
             name: .customLong("pull_requests"),
-            help: "pull_requestsの権限",
+            help: "The permission of pull_requests.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var pullRequests: Permission.Level?
 
         @Option(
             name: .customLong("repository_announcement_banners"),
-            help: "repository_announcement_bannersの権限",
+            help: "The permission of repository_announcement_banners.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var repositoryAnnouncementBanners: Permission.Level?
 
         @Option(
             name: .customLong("repository_hooks"),
-            help: "repository_hooksの権限",
+            help: "The permission of repository_hooks.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var repositoryHooks: Permission.Level?
 
         @Option(
             name: .customLong("repository_projects"),
-            help: "repository_projectsの権限",
+            help: "The permission of repository_projects.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var repositoryProjects: Permission.Level?
 
         @Option(
             name: .customLong("secret_scanning_alerts"),
-            help: "secret_scanning_alertsの権限",
+            help: "The permission of secret_scanning_alerts.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: false) }
         )
         private(set) var secretScanningAlerts: Permission.Level?
 
         @Option(
             name: .customLong("secrets"),
-            help: "secretsの権限",
+            help: "The permission of secrets.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var secrets: Permission.Level?
 
         @Option(
             name: .customLong("security_events"),
-            help: "security_eventsの権限",
+            help: "The permission of security_events.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var securityEvents: Permission.Level?
 
         @Option(
             name: .customLong("single_file"),
-            help: "single_fileの権限",
+            help: "The permission of single_file.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var singleFile: Permission.Level?
 
         @Option(
             name: .customLong("statuses"),
-            help: "statusesの権限",
+            help: "The permission of statuses.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var statuses: Permission.Level?
 
         @Option(
             name: .customLong("vulnerability_alerts"),
-            help: "vulnerability_alersの権限",
+            help: "The permission of vulnerability_alers.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var vulnerabilityAlerts: Permission.Level?
 
         @Flag(
             name: .long,
-            help: "workflowsの書き込み権限"
+            help: "The write permission of workflows."
         )
         private(set) var hasWriteAccessWorkflows = false
 
         @Option(
             name: .customLong("members"),
-            help: "membersの権限",
+            help: "The permission of members.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var members: Permission.Level?
 
         @Option(
             name: .customLong("organization_administration"),
-            help: "organization_administrationの権限",
+            help: "The permission of organization_administration.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var organizationAdministration: Permission.Level?
 
         @Option(
             name: .customLong("organization_custom_roles"),
-            help: "organization_custom_rolesの権限",
+            help: "The permission of organization_custom_roles.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var organizationCustomRoles: Permission.Level?
 
         @Option(
             name: .customLong("organization_announcement_banners"),
-            help: "organization_announcement_bannersの権限",
+            help: "The permission of organization_announcement_banners.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var organizationAnnouncementBanners: Permission.Level?
 
         @Option(
             name: .customLong("organization_hooks"),
-            help: "organization_hooksの権限",
+            help: "The permission of organization_hooks.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var organizationHooks: Permission.Level?
 
         @Flag(
             name: .customLong("organization_plan"),
-            help: "organization_planの読み取り権限"
+            help: "The read permission of organization_plan."
         )
         private(set) var hasReadAccessOrganizationPlan = false
 
         @Option(
             name: .customLong("organization_projects"),
-            help: "organization_projectsの権限",
+            help: "The permission of organization_projects.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: false) }
         )
         private(set) var organizationProjects: Permission.Level?
 
         @Option(
             name: .customLong("organization_packages"),
-            help: "organization_packagesの権限",
+            help: "The permission of organization_packages.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var organizationPackages: Permission.Level?
 
         @Option(
             name: .customLong("organization_secrets"),
-            help: "organization_secretsの権限",
+            help: "The permission of organization_secrets.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var organizationSecrets: Permission.Level?
 
         @Option(
             name: .customLong("organization_self_hosted_runners"),
-            help: "organization_self_hosted_runnersの権限",
+            help: "The permission of organization_self_hosted_runners.",
             transform: Permission.Level.init(rawValue:)
         )
         private(set) var organizationSelfHostedRunners: Permission.Level?
 
         @Option(
             name: .customLong("organization_user_blocking"),
-            help: "organization_user_blockingの権限",
+            help: "The permission of organization_user_blocking.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var organizationUserBlocking: Permission.Level?
 
         @Option(
             name: .customLong("team_discussions"),
-            help: "team_discussionsの権限",
+            help: "The permission of team_discussions.",
             transform: { try Permission.Level.init(rawValue: $0, withoutAdmin: true) }
         )
         private(set) var teamDiscussions: Permission.Level?
@@ -281,11 +281,11 @@ extension GitHubAppsTokenCLI {
 
     struct Revoke: AsyncParsableCommand {
         // MARK: - Properties
-        static let configuration: CommandConfiguration = .init(abstract: "アクセストークンを取り消します")
+        static let configuration: CommandConfiguration = .init(abstract: "Revoke an access token.")
 
         @Option(
             name: [.customShort("t"), .customLong("token")],
-            help: "取り消すアクセストークン",
+            help: "Access token to be revoked.",
             transform: AccessToken.Token.init(rawValue:)
         )
         private(set) var accessToken: AccessToken.Token
