@@ -14,7 +14,7 @@ cp ./LICENSE GitHubAppsToken.artifactbundle
 jq -n \
   --arg version "$(echo ${VERSION})" \
   --arg type "executable" \
-  --arg path "github-apps-token-$(echo ${VERSION})-macos/bin/github-apps-token" \
+  --arg path "bin/github-apps-token" \
   -f ./scripts/info.jq \
   | tee GitHubAppsToken.artifactbundle/info.json
 
