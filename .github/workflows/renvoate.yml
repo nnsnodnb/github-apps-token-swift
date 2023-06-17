@@ -1,0 +1,33 @@
+name: Renvoate
+
+on:
+  pull_request:
+    branches:
+      - renovate/*
+
+jobs:
+  swift-package-resolve:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Swift Package resolve
+      run: swift package resolve
+    - name: Git config
+      run: |
+        git config --global user.email "15368+github-actions@users.noreply.github.com"
+        git config --global user.name "github-actions"
+    - uses: Cyberbeni/install-swift-tool@v2
+      with:
+        url: https://github.com/tuist/xcbeautify
+        version: '*'
+    - name: Run test
+      run: |
+        set -o pipefail
+        swift test 2>&1 | xcbeautify
+    - name: Commit & push
+      run: |
+        git add Package.resolved
+        if git commit -m "Resolve Swift Package [ci skip]"; then
+          git push origin ${{ github.head_ref }}
+        fi
