@@ -1,9 +1,9 @@
-name: Renvoate
+name: Renovate
 
 on:
   pull_request:
     branches:
-      - renovate/*
+      - 'renovate/**'
 
 jobs:
   swift-package-resolve:
