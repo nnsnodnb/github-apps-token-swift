@@ -2,12 +2,11 @@ name: Renovate
 
 on:
   pull_request:
-    branches:
-      - 'renovate/**'
 
 jobs:
   swift-package-resolve:
     runs-on: macos-latest
+    if: startswith(github.head_ref, 'renovate')
 
     steps:
     - uses: actions/checkout@v3
