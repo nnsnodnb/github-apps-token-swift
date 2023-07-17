@@ -7,15 +7,20 @@ jobs:
   swift-package-resolve:
     runs-on: macos-latest
     if: startswith(github.head_ref, 'renovate')
+    
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     - name: Swift Package resolve
       run: swift package resolve
     - name: Git config
       run: |
-        git config --global user.email "15368+github-actions@users.noreply.github.com"
-        git config --global user.name "github-actions"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
     - uses: Cyberbeni/install-swift-tool@v2
       with:
         url: https://github.com/tuist/xcbeautify
