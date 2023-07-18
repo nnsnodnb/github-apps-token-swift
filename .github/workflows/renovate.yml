@@ -33,5 +33,5 @@ jobs:
       run: |
         git add Package.resolved
         if git commit -m "Resolve Swift Package [ci skip]"; then
-          git push origin ${{ github.head_ref }}
+          git push origin HEAD:${{ github.head_ref }}
         fi
