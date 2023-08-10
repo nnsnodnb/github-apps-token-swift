@@ -53,6 +53,12 @@ let package = Package(
             ]
         ),
         .testTarget(
+            name: "EntitiesTests",
+            dependencies: [
+                "Entities",
+            ]
+        ),
+        .testTarget(
             name: "GitHubAppsTokenCLITests",
             dependencies: [
                 "GitHubAppsTokenCLI",
