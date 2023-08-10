@@ -2,6 +2,30 @@
 
 Command line tool to grant access tokens to each repository when needed via GitHub Apps.
 
+## Installation
+
+### [Mint](https://github.com/yonaskolb/Mint)
+
+```command
+mint install nnsnodnb/github-apps-token-swift
+```
+
+or add to `Mintfile`.
+
+```
+nnsnodnb/github-apps-token-swift@v1.0.0
+```
+
+### Manual
+
+```command
+git clone https://github.com/nnsnodnb/github-apps-token-swift.git
+cd github-apps-token-swift
+make release_build
+```
+
+Executable binary path is `.build/apple/Products/Release/github-apps-token` in repository directory.
+
 ## Usage
 
 ```command
@@ -101,14 +125,14 @@ Grants `your_github_username/repository_1` and `your_github_username/repository_
 See [documentation](https://docs.github.com/en/rest/overview/permissions-required-for-github-apps?apiVersion=2022-11-28) for permissions.
 
 ```command
-$ github-apps-token create \
-    --app-id 123456 \
-    --private-key /path/to/privatekey.pem \
-    --owner your_github_username \
-    --repositories repository_1 \
-    --repositories repository_2 \
-    --contents read \
-    --pull_requests write
+github-apps-token create \
+  --app-id 123456 \
+  --private-key /path/to/privatekey.pem \
+  --owner your_github_username \
+  --repositories repository_1 \
+  --repositories repository_2 \
+  --contents read \
+  --pull_requests write
 ghs_Hqu93EIWNm5HS8DPxuQiKABWOAsKlB3k6tYV
 ```
 
@@ -132,7 +156,7 @@ OPTIONS:
 <summary>Sample</summary>
 
 ```command
-$ github-apps-token revoke --token ghs_Hqu93EIWNm5HS8DPxuQiKABWOAsKlB3k6tYV
+github-apps-token revoke --token ghs_Hqu93EIWNm5HS8DPxuQiKABWOAsKlB3k6tYV
 ```
 
 </details>
