@@ -9,5 +9,5 @@ import Foundation
 
 public protocol APIClientProtocol {
     func response<R: RequestType>(for request: R) async throws -> R.Response where R.Response: Decodable
-    func response<R: RequestType>(for request: R) async throws -> R.Response where R.Response == Void
+    func response<R: RequestType>(for request: R) async throws where R.Response == Void
 }
