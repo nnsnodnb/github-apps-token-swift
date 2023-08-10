@@ -13,9 +13,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/ishkawa/APIKit.git", .upToNextMajor(from: "5.4.0")),
+        .package(url: "https://github.com/kean/Get.git", .upToNextMajor(from: "2.1.6")),
         .package(url: "https://github.com/vapor/jwt-kit.git", .upToNextMajor(from: "4.13.0")),
-        .package(url: "https://github.com/AliSoftware/OHHTTPStubs.git", .upToNextMajor(from: "9.1.0")),
         .package(url: "https://github.com/kateinoigakukun/StubKit.git", .upToNextMajor(from: "0.1.7")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.2.2")),
         .package(url: "https://github.com/pointfreeco/swift-tagged.git", .upToNextMajor(from: "0.10.0")),
@@ -32,6 +31,7 @@ let package = Package(
         .target(
             name: "GitHubAppsTokenCore",
             dependencies: [
+                .product(name: "Get", package: "Get"),
                 .product(name: "JWTKit", package: "jwt-kit"),
                 "Entities",
                 "GitHubAppsAPI",
@@ -46,8 +46,14 @@ let package = Package(
         .target(
             name: "GitHubAppsAPI",
             dependencies: [
-                .product(name: "APIKit", package: "APIKit"),
+                .product(name: "Get", package: "Get"),
                 .product(name: "Tagged", package: "swift-tagged"),
+                "Entities",
+            ]
+        ),
+        .testTarget(
+            name: "EntitiesTests",
+            dependencies: [
                 "Entities",
             ]
         ),
@@ -60,8 +66,8 @@ let package = Package(
         .testTarget(
             name: "GitHubAppsTokenCoreTests",
             dependencies: [
-                .product(name: "OHHTTPStubsSwift", package: "OHHTTPStubs"),
                 .product(name: "StubKit", package: "StubKit"),
+                "GitHubAppsAPI",
                 "GitHubAppsTokenCore",
             ],
             resources: [.process("Resources")]

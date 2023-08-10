@@ -21,7 +21,7 @@ public enum GitHubAppsTokenCore {
         permission: Permission
     ) async throws -> AccessToken.Token {
         let jwtGenerator = try JWTGenerator(appID: appID, privateKey: privateKey)
-        let apiClient = APIClient()
+        let apiClient = APIClient(baseURL: URL(string: "https://api.github.com"))
         let githubAppsRepository = GitHubAppsRepository(apiClient: apiClient)
         let usecase = GitHubAppsUsecase(jwtGenerator: jwtGenerator, githubAppsRepository: githubAppsRepository)
         let token = try await usecase.createAccessToken(
@@ -33,7 +33,7 @@ public enum GitHubAppsTokenCore {
     }
 
     public static func revoke(with accessToken: AccessToken.Token) async throws {
-        let apiClient = APIClient()
+        let apiClient = APIClient(baseURL: URL(string: "https://api.github.com"))
         let githubInstallationRepository = GitHubInstallationRepository(apiClient: apiClient)
         let usecase = GitHubInstallationUsecase(githubInstallationRepository: githubInstallationRepository)
         try await usecase.revokeAccessToken(accessToken)

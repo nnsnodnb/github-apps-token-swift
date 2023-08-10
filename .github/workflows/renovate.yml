@@ -30,8 +30,10 @@ jobs:
         set -o pipefail
         swift test 2>&1 | xcbeautify
     - name: Commit & push
+      env:
+        HEAD_REF: ${{ github.head_ref }}
       run: |
         git add Package.resolved
         if git commit -m "Resolve Swift Package [ci skip]"; then
-          git push origin HEAD:${{ github.head_ref }}
+          git push origin "HEAD:${HEAD_REF}"
         fi

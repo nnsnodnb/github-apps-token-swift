@@ -5,9 +5,9 @@
 //  Created by Yuya Oka on 2023/02/14.
 //
 
-import APIKit
 import Entities
 import Foundation
+import Get
 
 // https://docs.github.com/en/rest/reference/apps#get-a-repository-installation-for-the-authenticated-app
 public extension GitHubAppsAPI.App.Installation {
@@ -18,6 +18,7 @@ public extension GitHubAppsAPI.App.Installation {
         // MARK: - Properties
         public let method: HTTPMethod = .get
         public let endpoint: Endpoint = .appInstallations
+        public let body: Encodable? = nil
         public let jwtToken: JWT
 
         // MARK: - Initialize

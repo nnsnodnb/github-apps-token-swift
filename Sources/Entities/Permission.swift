@@ -42,18 +42,6 @@ public struct Permission: Encodable {
     public let organizationUserBlocking: Level?
     public let teamDiscussions: Level?
 
-    public var jsonObject: [String: Any] {
-        do {
-            let jsonEncoder = JSONEncoder()
-            jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
-            let data = try jsonEncoder.encode(self)
-            let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-            return jsonObject ?? [:]
-        } catch {
-            return [:]
-        }
-    }
-
     // MARK: - Initialize
     public init(
         actions: Level? = nil,
@@ -121,6 +109,42 @@ public struct Permission: Encodable {
         self.organizationSelfHostedRunners = organizationSelfHostedRunners
         self.organizationUserBlocking = organizationUserBlocking
         self.teamDiscussions = teamDiscussions
+    }
+
+    // MARK: - CodingKeys
+    private enum CodingKeys: String, CodingKey {
+        case actions
+        case administration
+        case checks
+        case contents
+        case deployments
+        case environments
+        case issues
+        case packages
+        case pages
+        case pullRequests = "pull_requests"
+        case repositoryAnnouncementBanners = "repository_announcement_banners"
+        case repositoryHooks = "repository_hooks"
+        case repositoryProjects = "repository_projects"
+        case secretScanningAlerts = "secret_scanning_alerts"
+        case secrets
+        case securityEvents = "security_events"
+        case singleFile = "single_file"
+        case statuses
+        case vulnerabilityAlerts = "vulnerability_alerts"
+        case workflows
+        case members
+        case organizationAdministration = "organization_administration"
+        case organizationCustomRoles = "organization_custom_roles"
+        case organizationAnnouncementBanners = "organization_announcement_banners"
+        case organizationHooks = "organization_hooks"
+        case organizationPlan = "organization_plan"
+        case organizationProjects = "organization_projects"
+        case organizationPackages = "organization_packages"
+        case organizationSecrets = "organization_secrets"
+        case organizationSelfHostedRunners = "organization_self_hosted_runners"
+        case organizationUserBlocking = "organization_user_blocking"
+        case teamDiscussions = "team_discussions"
     }
 }
 

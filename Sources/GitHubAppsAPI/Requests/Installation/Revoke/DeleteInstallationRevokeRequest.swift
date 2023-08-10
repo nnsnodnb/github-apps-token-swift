@@ -5,9 +5,9 @@
 //  Created by Yuya Oka on 2023/02/14.
 //
 
-import APIKit
 import Entities
 import Foundation
+import Get
 
 // https://docs.github.com/en/rest/apps/installations#revoke-an-installation-access-token
 public extension GitHubAppsAPI.Installation.Revoke {
@@ -18,9 +18,10 @@ public extension GitHubAppsAPI.Installation.Revoke {
         // MARK: - Properties
         public let method: HTTPMethod = .delete
         public let endpoint: Endpoint = .installationToken
-
-        public var headerFields: [String: String] {
+        public let body: Encodable? = nil
+        public var headers: [String: String]? {
             return [
+                "Accept": "application/vnd.github+json",
                 "Authorization": "Bearer \(accessToken.rawValue)"
             ]
         }

@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "apikit",
+      "identity" : "get",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ishkawa/APIKit.git",
+      "location" : "https://github.com/kean/Get.git",
       "state" : {
-        "revision" : "b839e53b870104798035b279d2a6168b0a2227b1",
-        "version" : "5.4.0"
+        "revision" : "12830cc64f31789ae6f4352d2d51d03a25fc3741",
+        "version" : "2.1.6"
       }
     },
     {
@@ -16,15 +16,6 @@
       "state" : {
         "revision" : "9e929d925434b91857661bcd455d1bd53f00bf22",
         "version" : "4.13.0"
-      }
-    },
-    {
-      "identity" : "ohhttpstubs",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/AliSoftware/OHHTTPStubs.git",
-      "state" : {
-        "revision" : "12f19662426d0434d6c330c6974d53e2eb10ecd9",
-        "version" : "9.1.0"
       }
     },
     {
