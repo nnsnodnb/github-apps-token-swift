@@ -5,9 +5,9 @@
 //  Created by Yuya Oka on 2023/02/14.
 //
 
-import APIKit
 import Entities
 import Foundation
+import Get
 
 // https://docs.github.com/en/rest/apps/apps#create-an-installation-access-token-for-an-app
 public extension GitHubAppsAPI.App.Installation.AccessToken {
@@ -15,20 +15,18 @@ public extension GitHubAppsAPI.App.Installation.AccessToken {
         // MARK: - Response
         public typealias Response = AccessToken
 
+        // MARK: - Body
+        private struct Body: Encodable {
+            // MARK: - Properties
+            let repositories: [Repository]
+            let permissions: Permission
+        }
+
         // MARK: - Properties
         public let method: HTTPMethod = .post
         public let endpoint: Endpoint
+        public let body: Encodable?
         public let jwtToken: JWT
-
-        public var parameters: Any? {
-            return [
-                "repositories": repositories.map { $0.rawValue },
-                "permissions": permission.jsonObject
-            ]
-        }
-
-        private let repositories: [Repository]
-        private let permission: Permission
 
         // MARK: - Initialize
         public init(
@@ -39,8 +37,7 @@ public extension GitHubAppsAPI.App.Installation.AccessToken {
         ) {
             self.jwtToken = jwtToken
             self.endpoint = .appInstallationsAccessTokens(installationID)
-            self.repositories = repositories
-            self.permission = permission
+            self.body = Body(repositories: repositories, permissions: permission)
         }
     }
 }

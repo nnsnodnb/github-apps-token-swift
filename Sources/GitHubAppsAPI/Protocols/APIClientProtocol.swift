@@ -8,5 +8,6 @@
 import Foundation
 
 public protocol APIClientProtocol {
-    func response<Request: GitHubRequestType>(for request: Request) async throws -> Request.Response
+    func response<R: RequestType>(for request: R) async throws -> R.Response where R.Response: Decodable
+    func response<R: RequestType>(for request: R) async throws -> R.Response where R.Response == Void
 }

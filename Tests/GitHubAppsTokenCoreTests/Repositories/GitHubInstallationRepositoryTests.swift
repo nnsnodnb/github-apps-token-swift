@@ -14,7 +14,7 @@ import XCTest
 
 final class GitHubInstallationRepositoryTests: XCTestCase {
     func testRevokeAccessToken() async throws {
-        let apiClient = APIClient()
+        let apiClient = APIClient(baseURL: URL(string: "https://api.github.com"))
         let repository = GitHubInstallationRepository(apiClient: apiClient)
 
         OHHTTPStubsSwift.stub(condition: isPath("/installation/token")) { _ in

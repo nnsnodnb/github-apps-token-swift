@@ -14,7 +14,7 @@ import XCTest
 
 final class GitHubAppsRepositoryTests: XCTestCase {
     func testFetchInstallationApps() async throws {
-        let apiClient = APIClient()
+        let apiClient = APIClient(baseURL: URL(string: "https://api.github.com"))
         let repository = GitHubAppsRepository(apiClient: apiClient)
 
         let object: [[String: Any]] = [
@@ -25,7 +25,7 @@ final class GitHubAppsRepositoryTests: XCTestCase {
                     "login": "dummy_user",
                     "avatar_url": "https://example.com/avatar_url.jpg",
                     "organizations_url": "https://example.com/organization_url.jpg"
-                ],
+                ] as [String : Any],
                 "repository_selection": "select"
             ]
         ]
@@ -52,7 +52,7 @@ final class GitHubAppsRepositoryTests: XCTestCase {
     }
 
     func testCreateAccessToken() async throws {
-        let apiClient = APIClient()
+        let apiClient = APIClient(baseURL: URL(string: "https://api.github.com"))
         let repository = GitHubAppsRepository(apiClient: apiClient)
 
         let object: [String: Any] = [

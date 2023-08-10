@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "apikit",
+      "identity" : "get",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ishkawa/APIKit.git",
+      "location" : "https://github.com/kean/Get.git",
       "state" : {
-        "revision" : "b839e53b870104798035b279d2a6168b0a2227b1",
-        "version" : "5.4.0"
+        "revision" : "12830cc64f31789ae6f4352d2d51d03a25fc3741",
+        "version" : "2.1.6"
       }
     },
     {
