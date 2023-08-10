@@ -16,7 +16,7 @@ public extension GitHubRequestType {
     }
     var headers: [String: String]? {
         return [
-            "Accept": "application/vnd.github.json"
+            "Accept": "application/vnd.github+json"
         ]
     }
 }

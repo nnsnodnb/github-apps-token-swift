@@ -21,7 +21,7 @@ public extension GitHubAppsAPI.Installation.Revoke {
         public let body: Encodable? = nil
         public var headers: [String: String]? {
             return [
-                "Accept": "application/vnd.github.json",
+                "Accept": "application/vnd.github+json",
                 "Authorization": "Bearer \(accessToken.rawValue)"
             ]
         }

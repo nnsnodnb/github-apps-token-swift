@@ -15,7 +15,7 @@ public protocol GitHubAuthorizeRequestType: GitHubRequestType {
 public extension GitHubAuthorizeRequestType {
     var headers: [String: String]? {
         return [
-            "Accept": "application/vnd.github.json",
+            "Accept": "application/vnd.github+json",
             "Authorization": "Bearer \(jwtToken.rawValue)"
         ]
     }
