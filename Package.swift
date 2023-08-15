@@ -16,7 +16,7 @@ let package = Package(
         .package(url: "https://github.com/kean/Get.git", .upToNextMajor(from: "2.1.6")),
         .package(url: "https://github.com/vapor/jwt-kit.git", .upToNextMajor(from: "4.13.0")),
         .package(url: "https://github.com/kateinoigakukun/StubKit.git", .upToNextMajor(from: "0.1.7")),
-        .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.2.2")),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.2.3")),
         .package(url: "https://github.com/pointfreeco/swift-tagged.git", .upToNextMajor(from: "0.10.0")),
     ],
     targets: [
