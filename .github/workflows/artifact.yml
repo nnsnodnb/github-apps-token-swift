@@ -1,0 +1,37 @@
+name: artifact
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build artifact
+      run: make release_build
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: github-apps-token-swift-ubuntu
+        path: .build/release/github-apps-token
+
+  macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Create artifactbundle for macOS
+      run: ./scripts/artifactbundle.sh
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: github-apps-token-swift-macos
+        path: GitHubAppsToken.artifactbundle.zip
