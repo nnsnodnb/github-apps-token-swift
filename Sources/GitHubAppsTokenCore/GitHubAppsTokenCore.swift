@@ -11,7 +11,7 @@ import GitHubAppsAPI
 
 public enum GitHubAppsTokenCore {
     // MARK: - Properties
-    public static let version = "1.0.0"
+    public static let version = "1.1.2"
 
     public static func create(
         appID: String,
