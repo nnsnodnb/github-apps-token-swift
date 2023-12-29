@@ -16,6 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: Cyberbeni/install-swift-tool@v2
+      if: matrix.os == 'ubuntu-latest'
       with:
         url: https://github.com/tuist/xcbeautify
         version: '*'
