@@ -13,13 +13,13 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Build artifact
-      run: make release_build
+      run: make linux_zip
     
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: github-apps-token-swift-ubuntu
-        path: .build/release/github-apps-token
+        name: github-apps-token-swift-linux
+        path: github-apps-token-linux.zip
 
   macos:
     runs-on: macos-latest
