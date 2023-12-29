@@ -15,5 +15,5 @@ linux_zip: docker_image
 	@$(eval TMP_FOLDER := $(shell mktemp -d))
 	@docker run github-apps-token cat /usr/bin/github-apps-token > "$(TMP_FOLDER)/github-apps-token"
 	chmod +x "$(TMP_FOLDER)/github-apps-token"
-	cp -f "$(LICENSE_PATH)" "$(TMP_FOLDER)"
+	cp -f "LICENSE" "$(TMP_FOLDER)"
 	(cd "$(TMP_FOLDER)"; zip -yr - "github-apps-token" "LICENSE") > "./github-apps-token-linux.zip"
