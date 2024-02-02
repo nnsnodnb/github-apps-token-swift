@@ -22,7 +22,7 @@ jobs:
         path: github-apps-token-linux.zip
 
   macos:
-    runs-on: macos-latest
+    runs-on: macos-14
 
     steps:
     - uses: actions/checkout@v4
