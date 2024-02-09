@@ -9,8 +9,9 @@ struct GitHubAppsTokenCLI: AsyncParsableCommand {
     static var configuration: CommandConfiguration = {
         .init(
             commandName: "github-apps-token",
-            version: GitHubAppsTokenCore.version,
-            subcommands: [Create.self, Revoke.self]
+            version: Runner.version,
+            subcommands: [Create.self, Revoke.self],
+            helpNames: .long
         )
     }()
 }
@@ -34,6 +35,13 @@ extension GitHubAppsTokenCLI {
             transform: URL.init(fileURLWithPath:)
         )
         private(set) var privateKey: URL
+
+        @Option(
+            name: .shortAndLong,
+            help: "GitHub API Host URL. (default: https://api.github.com)",
+            transform: URL.init(string:)
+        )
+        private(set) var hostURL: URL? = URL(string: "https://api.github.com")
 
         @Option(
             name: .long,
@@ -284,6 +292,13 @@ extension GitHubAppsTokenCLI {
         static let configuration: CommandConfiguration = .init(abstract: "Revoke an access token.")
 
         @Option(
+            name: .shortAndLong,
+            help: "GitHub API Host URL. (default: https://api.github.com)",
+            transform: URL.init(string:)
+        )
+        private(set) var hostURL: URL? = URL(string: "https://api.github.com")
+
+        @Option(
             name: [.customShort("t"), .customLong("token")],
             help: "Access token to be revoked.",
             transform: AccessToken.Token.init(rawValue:)
@@ -295,7 +310,9 @@ extension GitHubAppsTokenCLI {
 // MARK: - Create
 extension GitHubAppsTokenCLI.Create {
     func run() async throws {
-        let token = try await GitHubAppsTokenCore.create(
+        let apiClient = APIClient(baseURL: hostURL)
+        let runner = Runner(apiClient: apiClient)
+        let token = try await runner.create(
             appID: appID,
             privateKey: privateKey,
             owner: owner,
@@ -347,6 +364,8 @@ extension GitHubAppsTokenCLI.Create {
 // MARK: - Revoke
 extension GitHubAppsTokenCLI.Revoke {
     func run() async throws {
-        try await GitHubAppsTokenCore.revoke(with: accessToken)
+        let apiClient = APIClient(baseURL: hostURL)
+        let runner = Runner(apiClient: apiClient)
+        try await runner.revoke(with: accessToken)
     }
 }

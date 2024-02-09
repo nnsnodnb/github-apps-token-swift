@@ -23,7 +23,7 @@ final class GitHubAppsTokenCLITests: XCTestCase {
 
         let version = try XCTUnwrap(pipe.readStandardOutput())
 
-        XCTAssertEqual(version, GitHubAppsTokenCore.version)
+        XCTAssertEqual(version, Runner.version)
     }
 }
 
