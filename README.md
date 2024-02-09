@@ -34,7 +34,7 @@ USAGE: github-apps-token <subcommand>
 
 OPTIONS:
   --version               Show the version.
-  -h, --help              Show help information.
+  --help                  Show help information.
 
 SUBCOMMANDS:
   create                  Create an access token.
@@ -56,6 +56,8 @@ OPTIONS:
   -a, --app-id <app-id>   The App ID of GitHub Apps.
   -p, --private-key <private-key>
                           The private key of GitHub Apps.
+  -h, --host-url <host-url>
+                          GitHub API Host URL. (default: https://api.github.com)
   --owner <owner>         Owner of repositories
   -r, --repositories <repositories>
                           List of repositories that need permissions.
@@ -115,7 +117,7 @@ OPTIONS:
   --team_discussions <team_discussions>
                           The permission of team_discussions.
   --version               Show the version.
-  -h, --help              Show help information.
+  --help                  Show help information.
 ```
 
 <details>
@@ -144,12 +146,14 @@ ghs_Hqu93EIWNm5HS8DPxuQiKABWOAsKlB3k6tYV
 $ github-apps-token revoke --help
 OVERVIEW: Revoke an access token.
 
-USAGE: github-apps-token revoke --token <token>
+USAGE: github-apps-token revoke [--host-url <host-url>] --token <token>
 
 OPTIONS:
+  -h, --host-url <host-url>
+                          GitHub API Host URL. (default: https://api.github.com)
   -t, --token <token>     Access token to be revoked.
   --version               Show the version.
-  -h, --help              Show help information.
+  --help                  Show help information.
 ```
 
 <details>
