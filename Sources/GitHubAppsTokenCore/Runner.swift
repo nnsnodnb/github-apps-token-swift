@@ -1,5 +1,5 @@
 //
-//  GitHubAppsTokenCore.swift
+//  Runner.swift
 //  
 //
 //  Created by Yuya Oka on 2023/02/20.
@@ -9,11 +9,18 @@ import Entities
 import Foundation
 import GitHubAppsAPI
 
-public enum GitHubAppsTokenCore {
+public struct Runner {
     // MARK: - Properties
     public static let version = "1.1.2"
 
-    public static func create(
+    private let apiClient: APIClientProtocol
+
+    // MARK: - Initialize
+    public init(apiClient: APIClientProtocol) {
+        self.apiClient = apiClient
+    }
+
+    public func create(
         appID: String,
         privateKey: URL,
         owner: String,
@@ -21,7 +28,6 @@ public enum GitHubAppsTokenCore {
         permission: Permission
     ) async throws -> AccessToken.Token {
         let jwtGenerator = try JWTGenerator(appID: appID, privateKey: privateKey)
-        let apiClient = APIClient(baseURL: URL(string: "https://api.github.com"))
         let githubAppsRepository = GitHubAppsRepository(apiClient: apiClient)
         let usecase = GitHubAppsUsecase(jwtGenerator: jwtGenerator, githubAppsRepository: githubAppsRepository)
         let token = try await usecase.createAccessToken(
@@ -32,8 +38,7 @@ public enum GitHubAppsTokenCore {
         return token
     }
 
-    public static func revoke(with accessToken: AccessToken.Token) async throws {
-        let apiClient = APIClient(baseURL: URL(string: "https://api.github.com"))
+    public func revoke(with accessToken: AccessToken.Token) async throws {
         let githubInstallationRepository = GitHubInstallationRepository(apiClient: apiClient)
         let usecase = GitHubInstallationUsecase(githubInstallationRepository: githubInstallationRepository)
         try await usecase.revokeAccessToken(accessToken)
