@@ -324,7 +324,7 @@ extension GitHubAppsTokenCLI {
 // MARK: - Create
 extension GitHubAppsTokenCLI.Create {
     func run() async throws {
-        let apiClient = APIClient(baseURL: hostURL)
+        let apiClient = APIClient(baseURL: hostURL, proxyURL: proxyURL)
         let runner = Runner(apiClient: apiClient)
         let token = try await runner.create(
             appID: appID,
@@ -378,7 +378,7 @@ extension GitHubAppsTokenCLI.Create {
 // MARK: - Revoke
 extension GitHubAppsTokenCLI.Revoke {
     func run() async throws {
-        let apiClient = APIClient(baseURL: hostURL)
+        let apiClient = APIClient(baseURL: hostURL, proxyURL: proxyURL)
         let runner = Runner(apiClient: apiClient)
         try await runner.revoke(with: accessToken)
     }

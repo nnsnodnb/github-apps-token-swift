@@ -6,6 +6,9 @@
 //
 
 import Foundation
+#if os(Linux) && canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 import Get
 import GitHubAppsAPI
 
@@ -14,10 +17,21 @@ public final class APIClient: APIClientProtocol {
     private let apiClient: Get.APIClient
 
     // MARK: - Initialize
-    public init(baseURL: URL?, proxyURL: URL? = nil) {
+    public init(baseURL: Foundation.URL?, proxyURL: Foundation.URL? = nil) {
         let sessionConfiguration: URLSessionConfiguration = {
             let configuration = URLSessionConfiguration.default
             if let proxyURL {
+                #if os(Linux)
+                var connectionProxyDictionary: [AnyHashable: Any] = [
+                    "HTTPEnable": 1,
+                    "HTTPSEnable": 1
+                ]
+                connectionProxyDictionary["HTTPProxy"] = proxyURL.host
+                connectionProxyDictionary["HTTPPort"] = proxyURL.port
+                connectionProxyDictionary["HTTPSProxy"] = proxyURL.host
+                connectionProxyDictionary["HTTPSPort"] = proxyURL.port
+                configuration.connectionProxyDictionary = connectionProxyDictionary
+                #else
                 configuration.connectionProxyDictionary = [
                     kCFNetworkProxiesHTTPEnable: 1,
                     kCFNetworkProxiesHTTPProxy: proxyURL.host,
@@ -26,6 +40,7 @@ public final class APIClient: APIClientProtocol {
                     kCFNetworkProxiesHTTPSProxy: proxyURL.host,
                     kCFNetworkProxiesHTTPSPort: proxyURL.port
                 ].compactMapValues { $0 }
+                #endif
             }
             return configuration
         }()
