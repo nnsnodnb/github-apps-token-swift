@@ -44,6 +44,13 @@ extension GitHubAppsTokenCLI {
         private(set) var hostURL: URL? = URL(string: "https://api.github.com")
 
         @Option(
+            name: [.customShort("x"), .customLong("proxy")],
+            help: "Your proxy server URL",
+            transform: URL.init(string:)
+        )
+        private(set) var proxyURL: URL?
+
+        @Option(
             name: .long,
             help: "Owner of repositories"
         )
@@ -297,6 +304,13 @@ extension GitHubAppsTokenCLI {
             transform: URL.init(string:)
         )
         private(set) var hostURL: URL? = URL(string: "https://api.github.com")
+
+        @Option(
+            name: [.customShort("x"), .customLong("proxy")],
+            help: "Your proxy server URL",
+            transform: URL.init(string:)
+        )
+        private(set) var proxyURL: URL?
 
         @Option(
             name: [.customShort("t"), .customLong("token")],
