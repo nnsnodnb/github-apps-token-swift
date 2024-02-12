@@ -48,9 +48,10 @@ Choose the `create` and `revoke` subcommands for `github-apps-token`.
 ### Create an access token
 
 ```command
+$ github-apps-token create --help
 OVERVIEW: Create an access token.
 
-USAGE: github-apps-token create [<options>] --app-id <app-id> --private-key <private-key> --owner <owner> --repositories <repositories> ... --organization_self_hosted_runners <organization_self_hosted_runners>
+USAGE: github-apps-token create [<options>] --app-id <app-id> --private-key <private-key> --proxy <proxy> --owner <owner> --repositories <repositories> ... --organization_self_hosted_runners <organization_self_hosted_runners>
 
 OPTIONS:
   -a, --app-id <app-id>   The App ID of GitHub Apps.
@@ -58,6 +59,7 @@ OPTIONS:
                           The private key of GitHub Apps.
   -h, --host-url <host-url>
                           GitHub API Host URL. (default: https://api.github.com)
+  -x, --proxy <proxy>     Your proxy server URL
   --owner <owner>         Owner of repositories
   -r, --repositories <repositories>
                           List of repositories that need permissions.
@@ -146,11 +148,12 @@ ghs_Hqu93EIWNm5HS8DPxuQiKABWOAsKlB3k6tYV
 $ github-apps-token revoke --help
 OVERVIEW: Revoke an access token.
 
-USAGE: github-apps-token revoke [--host-url <host-url>] --token <token>
+USAGE: github-apps-token revoke [--host-url <host-url>] --proxy <proxy> --token <token>
 
 OPTIONS:
   -h, --host-url <host-url>
                           GitHub API Host URL. (default: https://api.github.com)
+  -x, --proxy <proxy>     Your proxy server URL
   -t, --token <token>     Access token to be revoked.
   --version               Show the version.
   --help                  Show help information.

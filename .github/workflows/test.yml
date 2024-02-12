@@ -10,24 +10,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        os: ["ubuntu-latest", "macos-14"]
-
-    runs-on: ${{ matrix.os }}
+  macos:
+    runs-on: macos-14
 
     steps:
     - uses: actions/checkout@v4
-    - uses: Cyberbeni/install-swift-tool@v2
-      if: matrix.os == 'ubuntu-latest'
-      with:
-        url: https://github.com/tuist/xcbeautify
-        version: '*'
     - name: Run test
       run: |
         set -o pipefail
         swift test 2>&1 | xcbeautify
+
+  ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run test
+      run: |
+        set -o pipefail
+        swift test 2>&1
     - name: Docker image
-      if: matrix.os == 'ubuntu-latest'
       run: make docker_image

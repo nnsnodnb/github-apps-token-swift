@@ -44,6 +44,13 @@ extension GitHubAppsTokenCLI {
         private(set) var hostURL: URL? = URL(string: "https://api.github.com")
 
         @Option(
+            name: [.customShort("x"), .customLong("proxy")],
+            help: "Your proxy server URL",
+            transform: URL.init(string:)
+        )
+        private(set) var proxyURL: URL?
+
+        @Option(
             name: .long,
             help: "Owner of repositories"
         )
@@ -299,6 +306,13 @@ extension GitHubAppsTokenCLI {
         private(set) var hostURL: URL? = URL(string: "https://api.github.com")
 
         @Option(
+            name: [.customShort("x"), .customLong("proxy")],
+            help: "Your proxy server URL",
+            transform: URL.init(string:)
+        )
+        private(set) var proxyURL: URL?
+
+        @Option(
             name: [.customShort("t"), .customLong("token")],
             help: "Access token to be revoked.",
             transform: AccessToken.Token.init(rawValue:)
@@ -310,7 +324,7 @@ extension GitHubAppsTokenCLI {
 // MARK: - Create
 extension GitHubAppsTokenCLI.Create {
     func run() async throws {
-        let apiClient = APIClient(baseURL: hostURL)
+        let apiClient = APIClient(baseURL: hostURL, proxyURL: proxyURL)
         let runner = Runner(apiClient: apiClient)
         let token = try await runner.create(
             appID: appID,
@@ -364,7 +378,7 @@ extension GitHubAppsTokenCLI.Create {
 // MARK: - Revoke
 extension GitHubAppsTokenCLI.Revoke {
     func run() async throws {
-        let apiClient = APIClient(baseURL: hostURL)
+        let apiClient = APIClient(baseURL: hostURL, proxyURL: proxyURL)
         let runner = Runner(apiClient: apiClient)
         try await runner.revoke(with: accessToken)
     }
