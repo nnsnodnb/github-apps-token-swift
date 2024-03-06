@@ -1,4 +1,4 @@
-ARG BUILDER_IMAGE=swift:5.9-jammy
+ARG BUILDER_IMAGE=swift:5.10-jammy
 ARG RUNTIME_IMAGE=ubuntu:jammy
 
 FROM ${BUILDER_IMAGE} AS builder
