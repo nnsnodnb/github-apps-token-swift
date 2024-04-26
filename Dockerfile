@@ -1,5 +1,5 @@
 ARG BUILDER_IMAGE=swift:5.10-jammy
-ARG RUNTIME_IMAGE=ubuntu:jammy
+ARG RUNTIME_IMAGE=ubuntu:noble
 
 FROM ${BUILDER_IMAGE} AS builder
 RUN apt-get update && apt-get install -y \
