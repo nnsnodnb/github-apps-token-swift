@@ -13,7 +13,7 @@ mint install nnsnodnb/github-apps-token-swift
 or add to `Mintfile`.
 
 ```
-nnsnodnb/github-apps-token-swift@v1.1.3
+nnsnodnb/github-apps-token-swift@v1.2.0
 ```
 
 ### Manual
@@ -133,8 +133,7 @@ github-apps-token create \
   --app-id 123456 \
   --private-key /path/to/privatekey.pem \
   --owner your_github_username \
-  --repositories repository_1 \
-  --repositories repository_2 \
+  --repositories repository_1,repository_2 \
   --contents read \
   --pull_requests write
 ghs_Hqu93EIWNm5HS8DPxuQiKABWOAsKlB3k6tYV
