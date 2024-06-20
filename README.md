@@ -62,7 +62,7 @@ OPTIONS:
   -x, --proxy <proxy>     Your proxy server URL
   --owner <owner>         Owner of repositories
   -r, --repositories <repositories>
-                          List of repositories that need permissions.
+                          List of repositories that need permissions. (comma separated)
   --actions <actions>     The permission of actions.
   --administration <administration>
                           The permission of administration.
