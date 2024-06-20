@@ -58,11 +58,13 @@ extension GitHubAppsTokenCLI {
 
         @Option(
             name: .shortAndLong,
-            help: "List of repositories that need permissions.",
-            completion: .list([]),
-            transform: Repository.init(rawValue:)
+            help: "List of repositories that need permissions. (comma separated)",
+            transform: { value in
+                let repositories = value.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespaces) }
+                return .init(rawValue: repositories.map { .init(rawValue: $0) })
+            }
         )
-        private(set) var repositories: [Repository]
+        private(set) var repositories: Repositories
 
         @Option(
             name: .long,
@@ -330,7 +332,7 @@ extension GitHubAppsTokenCLI.Create {
             appID: appID,
             privateKey: privateKey,
             owner: owner,
-            repositories: repositories,
+            repositories: repositories.map { $0 },
             permission: makePermission()
         )
         print(token.rawValue)
