@@ -7,6 +7,9 @@ jobs:
   swift-package-resolve:
     runs-on: macos-14
     if: startswith(github.head_ref, 'renovate')
+
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.app/Contents/Developer
     
     permissions:
       contents: write
