@@ -6,7 +6,7 @@ import GitHubAppsTokenCore
 @main
 struct GitHubAppsTokenCLI: AsyncParsableCommand {
     // MARK: - Properties
-    static var configuration: CommandConfiguration = {
+    static let configuration: CommandConfiguration = {
         .init(
             commandName: "github-apps-token",
             version: Runner.version,

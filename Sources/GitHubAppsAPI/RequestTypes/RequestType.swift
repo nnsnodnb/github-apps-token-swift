@@ -8,7 +8,7 @@
 import Get
 
 public protocol RequestType {
-    associatedtype Response
+    associatedtype Response: Sendable
 
     var method: HTTPMethod { get }
     var endpoint: Endpoint { get }

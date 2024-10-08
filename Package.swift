@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -35,6 +35,11 @@ let package = Package(
                 .product(name: "JWTKit", package: "jwt-kit"),
                 "Entities",
                 "GitHubAppsAPI",
+            ],
+            linkerSettings: [
+                .linkedLibrary("crypto", .when(platforms: [.linux])),
+                .linkedLibrary("ssl", .when(platforms: [.linux])),
+                .linkedLibrary("z", .when(platforms: [.linux])),
             ]
         ),
         .target(
