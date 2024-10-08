@@ -8,7 +8,7 @@
 import Foundation
 import Tagged
 
-public struct Account: Decodable, Equatable {
+public struct Account: Decodable, Equatable, Sendable {
     // MARK: - Tagged
     public typealias ID = Tagged<Self, Int>
 

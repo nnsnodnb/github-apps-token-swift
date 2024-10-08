@@ -1,45 +1,25 @@
-ARG BUILDER_IMAGE=swift:6.0-jammy
+ARG BUILDER_IMAGE=swift:6.0.1-jammy
 ARG RUNTIME_IMAGE=ubuntu:jammy
+ARG SWIFT_STATIC_LINUX_SDK=https://download.swift.org/swift-6.0.1-release/static-sdk/swift-6.0.1-RELEASE/swift-6.0.1-RELEASE_static-linux-0.0.1.artifactbundle.tar.gz
+ARG SWIFT_STATIC_LINUX_SDK_CHECKSUM=d4f46ba40e11e697387468e18987ee622908bc350310d8af54eb5e17c2ff5481
 
 FROM ${BUILDER_IMAGE} AS builder
-RUN apt-get update && apt-get install -y \
-    libcurl4-openssl-dev \
-    libxml2-dev \
- && rm -r /var/lib/apt/lists/*
+
 WORKDIR /workdir/
 COPY Sources Sources/
 COPY Tests Tests/
 COPY Package.* ./
 
 RUN swift package resolve
-ARG SWIFT_FLAGS="-c release -Xswiftc -static-stdlib -Xlinker -lCFURLSessionInterface -Xlinker -lCFXMLInterface -Xlinker -lcurl -Xlinker -lxml2 -Xswiftc -I. -Xlinker -fuse-ld=lld -Xlinker -L/usr/lib/swift/linux"
+
+
+RUN swift sdk install $SWIFT_STATIC_LINUX_SDK --checksum $SWIFT_STATIC_LINUX_SDK_CHECKSUM
+ARG SWIFT_FLAGS="--swift-sdk aarch64-swift-linux-musl --swift-sdk x86_64-swift-linux-musl"
 RUN swift build $SWIFT_FLAGS --product github-apps-token
 RUN mv `swift build $SWIFT_FLAGS --show-bin-path`/github-apps-token /usr/bin
 
 # Runtime image
 FROM ${RUNTIME_IMAGE}
-RUN apt-get update && apt-get install -y \
-    libcurl4 \
-    libxml2 \
- && rm -r /var/lib/apt/lists/*
-COPY --from=builder /usr/lib/libsourcekitdInProc.so /usr/lib
-COPY --from=builder /usr/lib/swift/host/libSwiftBasicFormat.so /usr/lib
-COPY --from=builder /usr/lib/swift/host/libSwiftCompilerPluginMessageHandling.so /usr/lib
-COPY --from=builder /usr/lib/swift/host/libSwiftDiagnostics.so /usr/lib
-COPY --from=builder /usr/lib/swift/host/libSwiftOperators.so /usr/lib
-COPY --from=builder /usr/lib/swift/host/libSwiftParser.so /usr/lib
-COPY --from=builder /usr/lib/swift/host/libSwiftParserDiagnostics.so /usr/lib
-COPY --from=builder /usr/lib/swift/host/libSwiftSyntax.so /usr/lib
-COPY --from=builder /usr/lib/swift/host/libSwiftSyntaxBuilder.so /usr/lib
-COPY --from=builder /usr/lib/swift/host/libSwiftSyntaxMacroExpansion.so /usr/lib
-COPY --from=builder /usr/lib/swift/host/libSwiftSyntaxMacros.so /usr/lib
-COPY --from=builder /usr/lib/swift/linux/libBlocksRuntime.so /usr/lib
-COPY --from=builder /usr/lib/swift/linux/libdispatch.so /usr/lib
-COPY --from=builder /usr/lib/swift/linux/libswift_Concurrency.so /usr/lib
-COPY --from=builder /usr/lib/swift/linux/libswift_RegexParser.so /usr/lib
-COPY --from=builder /usr/lib/swift/linux/libswift_StringProcessing.so /usr/lib
-COPY --from=builder /usr/lib/swift/linux/libswiftCore.so /usr/lib
-COPY --from=builder /usr/lib/swift/linux/libswiftGlibc.so /usr/lib
 COPY --from=builder /usr/bin/github-apps-token /usr/bin
 
 RUN github-apps-token --version
