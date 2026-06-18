@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Build artifact
       run: make linux_zip
@@ -28,7 +28,7 @@ jobs:
       DEVELOPER_DIR: /Applications/Xcode_16.2.app/Contents/Developer
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Create artifactbundle for macOS
       run: ./scripts/artifactbundle.sh
