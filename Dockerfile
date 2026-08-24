@@ -1,5 +1,5 @@
 ARG BUILDER_IMAGE=ghcr.io/nnsnodnb/swift-static-linux-sdk:6.3.3-bookworm
-ARG RUNTIME_IMAGE=ubuntu:24.04
+ARG RUNTIME_IMAGE=ubuntu:26.04
 
 FROM ${BUILDER_IMAGE} AS builder
 
