@@ -11,12 +11,12 @@ import GitHubAppsAPI
 
 public struct Runner {
   // MARK: - Properties
-  public static let version = "1.2.0"
+  public static let version = "1.2.1"
 
-  private let apiClient: APIClientProtocol
+  private let apiClient: any APIClientProtocol
 
   // MARK: - Initialize
-  public init(apiClient: APIClientProtocol) {
+  public init(apiClient: any APIClientProtocol) {
     self.apiClient = apiClient
   }
 
