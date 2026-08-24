@@ -34,12 +34,16 @@ public final class APIClient: APIClientProtocol {
         #else
         configuration.connectionProxyDictionary = [
           kCFNetworkProxiesHTTPEnable: 1,
-          kCFNetworkProxiesHTTPProxy: proxyURL.host,
-          kCFNetworkProxiesHTTPPort: proxyURL.port,
           kCFNetworkProxiesHTTPSEnable: 1,
-          kCFNetworkProxiesHTTPSProxy: proxyURL.host,
-          kCFNetworkProxiesHTTPSPort: proxyURL.port
-        ].compactMapValues { $0 }
+        ]
+        if let host = proxyURL.host {
+          configuration.connectionProxyDictionary?[kCFNetworkProxiesHTTPProxy] = host
+          configuration.connectionProxyDictionary?[kCFNetworkProxiesHTTPSProxy] = host
+        }
+        if let port = proxyURL.port {
+          configuration.connectionProxyDictionary?[kCFNetworkProxiesHTTPPort] = port
+          configuration.connectionProxyDictionary?[kCFNetworkProxiesHTTPSPort] = port
+        }
         #endif
       }
       return configuration
