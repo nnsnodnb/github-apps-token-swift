@@ -6,10 +6,12 @@
 //
 
 import ArgumentParser
+import Foundation
 @testable import GitHubAppsTokenCore
-import XCTest
+import Testing
 
-final class GitHubAppsTokenCLITests: XCTestCase {
+struct GitHubAppsTokenCLITests {
+    @Test
     func testVersion() throws {
         let pipe = Pipe()
         let process = process(
@@ -17,13 +19,18 @@ final class GitHubAppsTokenCLITests: XCTestCase {
             pipe: pipe
         )
 
-        XCTAssertNoThrow(try process.run())
+        #expect(throws: Never.self) {
+          try process.run()
+        }
         process.waitUntilExit()
-        XCTAssertEqual(ExitCode(process.terminationStatus), .success)
+        #expect(ExitCode(process.terminationStatus) == .success)
 
-        let version = try XCTUnwrap(pipe.readStandardOutput())
+        guard let version = pipe.readStandardOutput() else {
+          Issue.record("version is not found")
+          return
+        }
 
-        XCTAssertEqual(version, Runner.version)
+        #expect(version == Runner.version)
     }
 }
 

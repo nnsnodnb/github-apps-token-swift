@@ -9,9 +9,10 @@ import Entities
 @testable import GitHubAppsTokenCore
 import Foundation
 import StubKit
-import XCTest
+import Testing
 
-final class GitHubAppsRepositoryTests: XCTestCase {
+struct GitHubAppsRepositoryTests {
+    @Test
     func testFetchInstallationApps() async throws {
         let expect = try Stub.make(Installation.self) {
             $0.set(\.id, value: 1234)
@@ -29,9 +30,10 @@ final class GitHubAppsRepositoryTests: XCTestCase {
 
         let installations = try await repository.fetchInstallationApps(jwtToken: "dummy_jwt")
 
-        XCTAssertEqual(installations, [expect])
+        #expect(installations == [expect])
     }
 
+    @Test
     func testCreateAccessToken() async throws {
         let expect = try Stub.make(AccessToken.self) {
             $0.set(\.token, value: "dummy_token")
@@ -46,6 +48,6 @@ final class GitHubAppsRepositoryTests: XCTestCase {
             permission: .init()
         )
 
-        XCTAssertEqual(accessToken, expect)
+        #expect(accessToken == expect)
     }
 }

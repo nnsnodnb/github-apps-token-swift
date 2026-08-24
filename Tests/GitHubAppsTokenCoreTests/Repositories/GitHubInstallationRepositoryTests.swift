@@ -9,14 +9,15 @@ import Entities
 @testable import GitHubAppsTokenCore
 import Foundation
 import StubKit
-import XCTest
+import Testing
 
-final class GitHubInstallationRepositoryTests: XCTestCase {
+struct GitHubInstallationRepositoryTests {
+    @Test
     func testRevokeAccessToken() async throws {
         let apiClient = StubAPIClient(responseDecodable: "stub")
         let repository = GitHubInstallationRepository(apiClient: apiClient)
 
-        XCTAssertNoThrow {
+        await #expect(throws: Never.self) {
             try await repository.revokeAccessToken(.init("dummy_token"))
         }
     }

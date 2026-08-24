@@ -8,19 +8,20 @@
 import Foundation
 @testable import GitHubAppsTokenCore
 import JWTKit
-import XCTest
+import Testing
 
-final class JWTGeneratorTests: XCTestCase {
+struct JWTGeneratorTests {
+    @Test
     func testGenerate() throws {
         guard let privateKeyURL = Bundle.module.url(forResource: "dummy", withExtension: "pem") else {
-            XCTFail("Not found dummy.pem in resource.")
+            Issue.record("Not found dummy.pem in resource.")
             return
         }
         let jwtGenerator = try JWTGenerator(appID: "dummy", privateKey: privateKeyURL)
         let token = try jwtGenerator.generate()
 
         guard let publicKeyURL = Bundle.module.url(forResource: "dummy", withExtension: "pub") else {
-            XCTFail("Not found dummy.pub in resource.")
+            Issue.record("Not found dummy.pub in resource.")
             return
         }
         let publicKey = try Data(contentsOf: publicKeyURL, options: .alwaysMapped)
@@ -29,6 +30,6 @@ final class JWTGeneratorTests: XCTestCase {
         signers.use(.rs256(key: key))
         let payload = try signers.verify(token.rawValue, as: JWTGenerator.Payload.self)
 
-        XCTAssertEqual(payload.issuer.value, "dummy")
+        #expect(payload.issuer.value == "dummy")
     }
 }

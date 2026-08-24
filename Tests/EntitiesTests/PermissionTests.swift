@@ -7,9 +7,10 @@
 
 @testable import Entities
 import Foundation
-import XCTest
+import Testing
 
-final class PermissionTests: XCTestCase {
+struct PermissionTests {
+    @Test
     func testEncode() throws {
         let permission = Permission(
             actions: .write,
@@ -49,7 +50,7 @@ final class PermissionTests: XCTestCase {
         let jsonEncoder = JSONEncoder()
         let data = try jsonEncoder.encode(permission)
         guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: String] else {
-            XCTFail("Invalid Permission encode")
+            Issue.record("Invalid Permission encode")
             return
         }
 
@@ -88,7 +89,7 @@ final class PermissionTests: XCTestCase {
             "team_discussions"
          ]
         permissions.forEach {
-            XCTAssertEqual(jsonObject[$0], "write", "\($0) is invalid.")
+            #expect(jsonObject[$0] == "write", "\($0) is invalid.")
         }
     }
 }
