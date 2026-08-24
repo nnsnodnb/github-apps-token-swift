@@ -12,7 +12,6 @@ public protocol JWTGeneratorable {
   var iat: Date { get }
   var exp: Date { get }
   var iss: String { get }
-  var privateKey: Data { get }
 
-  func generate() throws -> JWT
+  func generate() async throws -> JWT
 }

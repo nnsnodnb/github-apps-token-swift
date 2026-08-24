@@ -33,7 +33,7 @@ final class GitHubAppsUsecase: GitHubAppsUsecaseProtocol {
     permission: Permission
   ) async throws -> AccessToken.Token {
     let installation: Installation = try await {
-      let jwtToken = try jwtGenerator.generate()
+      let jwtToken = try await jwtGenerator.generate()
       let installations = try await githubAppsRepository.fetchInstallationApps(jwtToken: jwtToken)
       guard let installation = installations.first(where: { $0.account.login == owner }) else {
         throw Installation.Error.notFound
@@ -41,7 +41,7 @@ final class GitHubAppsUsecase: GitHubAppsUsecaseProtocol {
       return installation
     }()
     let accessToken: AccessToken.Token = try await {
-      let jwtToken = try jwtGenerator.generate()
+      let jwtToken = try await jwtGenerator.generate()
       let accessToken = try await githubAppsRepository.createAccessToken(
         jwtToken: jwtToken,
         installationID: installation.id,

@@ -27,7 +27,7 @@ public struct Runner {
     repositories: [Repository],
     permission: Permission
   ) async throws -> AccessToken.Token {
-    let jwtGenerator = try JWTGenerator(appID: appID, privateKey: privateKey)
+    let jwtGenerator = try await JWTGenerator(appID: appID, privateKey: privateKey)
     let githubAppsRepository = GitHubAppsRepository(apiClient: apiClient)
     let usecase = GitHubAppsUsecase(jwtGenerator: jwtGenerator, githubAppsRepository: githubAppsRepository)
     let token = try await usecase.createAccessToken(

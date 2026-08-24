@@ -10,24 +10,33 @@ import Foundation
 import JWTKit
 
 public final class JWTGenerator: JWTGeneratorable {
+  // MARK: - Error
+  public enum Error: Swift.Error {
+    case invalidPrivateKeyEncoding
+  }
+
   // MARK: - Properties
   public private(set) lazy var iat: Date = .init()
   public var exp: Date { return Date(timeInterval: 60 * 10, since: iat) }
   public let iss: String
-  public let privateKey: Data
+  private let keys: JWTKeyCollection
 
   // MARK: - Initialize
-  public init(appID: String, privateKey: URL) throws {
+  public init(appID: String, privateKey: URL) async throws {
     self.iss = appID
-    self.privateKey = try Data(contentsOf: privateKey)
+    let data = try Data(contentsOf: privateKey)
+    guard let privateKey = String(data: data, encoding: .utf8) else {
+      throw Error.invalidPrivateKeyEncoding
+    }
+    let keys = JWTKeyCollection()
+    let rsaKey = try JWTKit.Insecure.RSA.PrivateKey(pem: privateKey)
+    await keys.add(rsa: rsaKey, digestAlgorithm: .sha256)
+    self.keys = keys
   }
 
-  public func generate() throws -> Entities.JWT {
-    let signers = JWTSigners()
-    let key = try RSAKey.private(pem: privateKey)
-    signers.use(.rs256(key: key))
+  public func generate() async throws -> Entities.JWT {
     let payload = Payload(expiration: .init(value: exp), issuer: .init(value: iss))
-    let token = try signers.sign(payload)
+    let token = try await keys.sign(payload)
     return .init(token)
   }
 }
@@ -46,7 +55,7 @@ public extension JWTGenerator {
       case issuer = "iss"
     }
 
-    public func verify(using signer: JWTKit.JWTSigner) throws {
+    public func verify(using algorithm: some JWTAlgorithm) async throws {
       try self.expiration.verifyNotExpired()
     }
 
