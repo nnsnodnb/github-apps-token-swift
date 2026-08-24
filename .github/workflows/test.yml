@@ -32,5 +32,3 @@ jobs:
       run: |
         set -o pipefail
         swift test 2>&1
-    - name: Docker image
-      run: make docker_image
