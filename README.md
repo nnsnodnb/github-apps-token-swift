@@ -24,7 +24,7 @@ cd github-apps-token-swift
 make release_build
 ```
 
-Executable binary path is `.build/apple/Products/Release/github-apps-token` in repository directory.
+Executable binary path is `github-apps-token` in repository directory.
 
 ## Usage
 
