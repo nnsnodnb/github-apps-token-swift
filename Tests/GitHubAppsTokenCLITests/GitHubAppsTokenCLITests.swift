@@ -9,9 +9,9 @@ import ArgumentParser
 import Foundation
 @testable import GitHubAppsTokenCore
 import Testing
+import XCTest
 
-struct GitHubAppsTokenCLITests {
-  @Test
+final class GitHubAppsTokenCLITests: XCTestCase {
   func testVersion() throws {
     let pipe = Pipe()
     let process = process(
