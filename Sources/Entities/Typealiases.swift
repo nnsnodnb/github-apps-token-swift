@@ -1,6 +1,6 @@
 //
 //  Typealiases.swift
-//  
+//
 //
 //  Created by Yuya Oka on 2023/02/14.
 //
