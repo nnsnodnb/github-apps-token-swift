@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -9,8 +9,8 @@ let package = Package(
     products: [
         .executable(
             name: "github-apps-token",
-            targets: ["GitHubAppsTokenCLI"]
-        )
+            targets: ["GitHubAppsTokenCLI"],
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/kean/Get.git", .upToNextMajor(from: "2.2.1")),
@@ -26,7 +26,7 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "Entities",
                 "GitHubAppsTokenCore",
-            ]
+            ],
         ),
         .target(
             name: "GitHubAppsTokenCore",
@@ -46,7 +46,7 @@ let package = Package(
             name: "Entities",
             dependencies: [
                 .product(name: "Tagged", package: "swift-tagged"),
-            ]
+            ],
         ),
         .target(
             name: "GitHubAppsAPI",
@@ -54,19 +54,19 @@ let package = Package(
                 .product(name: "Get", package: "Get"),
                 .product(name: "Tagged", package: "swift-tagged"),
                 "Entities",
-            ]
+            ],
         ),
         .testTarget(
             name: "EntitiesTests",
             dependencies: [
                 "Entities",
-            ]
+            ],
         ),
         .testTarget(
             name: "GitHubAppsTokenCLITests",
             dependencies: [
                 "GitHubAppsTokenCLI",
-            ]
+            ],
         ),
         .testTarget(
             name: "GitHubAppsTokenCoreTests",
@@ -75,7 +75,7 @@ let package = Package(
                 "GitHubAppsAPI",
                 "GitHubAppsTokenCore",
             ],
-            resources: [.process("Resources")]
+            resources: [.process("Resources")],
         ),
     ]
 )
