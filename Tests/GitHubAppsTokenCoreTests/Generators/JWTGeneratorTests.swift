@@ -1,6 +1,6 @@
 //
 //  JWTGeneratorTests.swift
-//  
+//
 //
 //  Created by Yuya Oka on 2023/02/16.
 //
@@ -11,25 +11,25 @@ import JWTKit
 import Testing
 
 struct JWTGeneratorTests {
-    @Test
-    func testGenerate() throws {
-        guard let privateKeyURL = Bundle.module.url(forResource: "dummy", withExtension: "pem") else {
-            Issue.record("Not found dummy.pem in resource.")
-            return
-        }
-        let jwtGenerator = try JWTGenerator(appID: "dummy", privateKey: privateKeyURL)
-        let token = try jwtGenerator.generate()
-
-        guard let publicKeyURL = Bundle.module.url(forResource: "dummy", withExtension: "pub") else {
-            Issue.record("Not found dummy.pub in resource.")
-            return
-        }
-        let publicKey = try Data(contentsOf: publicKeyURL, options: .alwaysMapped)
-        let signers = JWTSigners()
-        let key = try RSAKey.public(pem: publicKey)
-        signers.use(.rs256(key: key))
-        let payload = try signers.verify(token.rawValue, as: JWTGenerator.Payload.self)
-
-        #expect(payload.issuer.value == "dummy")
+  @Test
+  func testGenerate() throws {
+    guard let privateKeyURL = Bundle.module.url(forResource: "dummy", withExtension: "pem") else {
+      Issue.record("Not found dummy.pem in resource.")
+      return
     }
+    let jwtGenerator = try JWTGenerator(appID: "dummy", privateKey: privateKeyURL)
+    let token = try jwtGenerator.generate()
+
+    guard let publicKeyURL = Bundle.module.url(forResource: "dummy", withExtension: "pub") else {
+      Issue.record("Not found dummy.pub in resource.")
+      return
+    }
+    let publicKey = try Data(contentsOf: publicKeyURL, options: .alwaysMapped)
+    let signers = JWTSigners()
+    let key = try RSAKey.public(pem: publicKey)
+    signers.use(.rs256(key: key))
+    let payload = try signers.verify(token.rawValue, as: JWTGenerator.Payload.self)
+
+    #expect(payload.issuer.value == "dummy")
+  }
 }

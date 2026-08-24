@@ -1,6 +1,6 @@
 //
 //  GitHubInstallationRepositoryTests.swift
-//  
+//
 //
 //  Created by Yuya Oka on 2023/02/21.
 //
@@ -12,13 +12,13 @@ import StubKit
 import Testing
 
 struct GitHubInstallationRepositoryTests {
-    @Test
-    func testRevokeAccessToken() async throws {
-        let apiClient = StubAPIClient(responseDecodable: "stub")
-        let repository = GitHubInstallationRepository(apiClient: apiClient)
+  @Test
+  func testRevokeAccessToken() async throws {
+    let apiClient = StubAPIClient(responseDecodable: "stub")
+    let repository = GitHubInstallationRepository(apiClient: apiClient)
 
-        await #expect(throws: Never.self) {
-            try await repository.revokeAccessToken(.init("dummy_token"))
-        }
+    await #expect(throws: Never.self) {
+      try await repository.revokeAccessToken(.init("dummy_token"))
     }
+  }
 }

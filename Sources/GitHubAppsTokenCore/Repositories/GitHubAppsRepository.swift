@@ -1,6 +1,6 @@
 //
 //  GitHubAppsRepository.swift
-//  
+//
 //
 //  Created by Yuya Oka on 2023/02/15.
 //
@@ -10,41 +10,41 @@ import Foundation
 import GitHubAppsAPI
 
 public protocol GitHubAppsRepositoryProtocol {
-    func fetchInstallationApps(jwtToken: JWT) async throws -> [Installation]
-    func createAccessToken(
-        jwtToken: JWT,
-        installationID: Installation.ID,
-        repositories: [Repository],
-        permission: Permission
-    ) async throws -> AccessToken
+  func fetchInstallationApps(jwtToken: JWT) async throws -> [Installation]
+  func createAccessToken(
+    jwtToken: JWT,
+    installationID: Installation.ID,
+    repositories: [Repository],
+    permission: Permission
+  ) async throws -> AccessToken
 }
 
 public final class GitHubAppsRepository: GitHubAppsRepositoryProtocol {
-    // MARK: - Properties
-    private let apiClient: any APIClientProtocol
+  // MARK: - Properties
+  private let apiClient: any APIClientProtocol
 
-    // MARK: - Initialize
-    public init(apiClient: any APIClientProtocol) {
-        self.apiClient = apiClient
-    }
+  // MARK: - Initialize
+  public init(apiClient: any APIClientProtocol) {
+    self.apiClient = apiClient
+  }
 
-    public func fetchInstallationApps(jwtToken: JWT) async throws -> [Installation] {
-        let request = GitHubAppsAPI.App.Installation.List(jwtToken: jwtToken)
-        return try await apiClient.response(for: request)
-    }
+  public func fetchInstallationApps(jwtToken: JWT) async throws -> [Installation] {
+    let request = GitHubAppsAPI.App.Installation.List(jwtToken: jwtToken)
+    return try await apiClient.response(for: request)
+  }
 
-    public func createAccessToken(
-        jwtToken: JWT,
-        installationID: Installation.ID,
-        repositories: [Repository],
-        permission: Permission
-    ) async throws -> AccessToken {
-        let request = GitHubAppsAPI.App.Installation.AccessToken.Create(
-            jwtToken: jwtToken,
-            installationID: installationID,
-            repositories: repositories,
-            permission: permission
-        )
-        return try await apiClient.response(for: request)
-    }
+  public func createAccessToken(
+    jwtToken: JWT,
+    installationID: Installation.ID,
+    repositories: [Repository],
+    permission: Permission
+  ) async throws -> AccessToken {
+    let request = GitHubAppsAPI.App.Installation.AccessToken.Create(
+      jwtToken: jwtToken,
+      installationID: installationID,
+      repositories: repositories,
+      permission: permission
+    )
+    return try await apiClient.response(for: request)
+  }
 }
