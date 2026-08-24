@@ -15,7 +15,7 @@ jobs:
       contents: write
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       with:
         fetch-depth: 0
     - name: Swift Package resolve
@@ -24,7 +24,7 @@ jobs:
       run: |
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-    - uses: Cyberbeni/install-swift-tool@v2
+    - uses: Cyberbeni/install-swift-tool@219fb90c085567abe43197981979ef0ecf2e05e4  # v2.3.2
       with:
         url: https://github.com/tuist/xcbeautify
         version: '*'
