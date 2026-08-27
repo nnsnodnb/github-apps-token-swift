@@ -1,0 +1,85 @@
+name: Release
+
+on:
+  push:
+    tags:
+    - 'v*.*.*'
+
+jobs:
+  macos_build:
+    name: Build for macOS
+    runs-on: macos-26
+
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+    - name: Build release
+      run: |
+        make release_build
+        zip -j dist/macos-portable.zip dist/github-apps-token
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+      with:
+        name: github-apps-token-macos
+        path: dist/macos-portable.zip
+
+  linux_build:
+    name: Build for Linux
+    runs-on: ubuntu-24.04
+    container: ghcr.io/nnsnodnb/swift-static-linux-sdk:6.3.3-bookworm
+
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+    - name: Build release for x86_64
+      run: swift build -c release --swift-sdk x86_64-swift-linux-musl
+    - name: Build release for arm64
+      run: swift build -c release --swift-sdk aarch64-swift-linux-musl
+    - name: Install dependencies by apt-get
+      run:
+        sudo apt-get update
+        sudo apt-get install -y binutils-aarch64-linux-gnu zip
+    - name: Prepare artifacts
+      run: |
+        mkdir -p dist/{x86_64,arm64}
+        cp .build/x86_64-swift-linux-musl/release/github-apps-token dist/x86_64/
+        cp .build/aarch64-swift-linux-musl/release/github-apps-token dist/arm64/
+        strip --verbose dist/x86_64/github-apps-token
+        aarch64-linux-gnu-strip --verbose dist/arm64/github-apps-token
+        zip -j linux-x86_64.zip dist/x86_64/github-apps-token
+        zip -j linux-arm64.zip dist/arm64/github-apps-token
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+      with:
+        name: github-apps-token-linux
+        path: |
+          dist/linux-x86_64.zip
+          dist/linux-arm64.zip
+
+  publish:
+    name: Publish release
+    needs:
+    - macos_build
+    - linux_build
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+    - name: Download artifact for macOS
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # v8.0.1
+      with:
+        name: github-apps-token-macos
+        path: dist/macos
+    - name: Download artifacts for Linux
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # v8.0.1
+      with:
+        name: github-apps-token-linux
+        path: dist/linux
+    - name: Get the tag name
+      run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> "${GITHUB_ENV}"
+    - uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        name: github-apps-token-swift ${{ env.TAG_NAME }}
+        files: |
+          dist/macos/macos-portable.zip
+          dist/linux/linux-x86_64.zip
+          dist/linux/linux-arm64.zip
+        generate_release_notes: true
+        draft: true
