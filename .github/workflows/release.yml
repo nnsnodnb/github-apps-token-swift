@@ -34,8 +34,8 @@ jobs:
       run: swift build -c release --swift-sdk aarch64-swift-linux-musl
     - name: Install dependencies by apt-get
       run:
-        sudo apt-get update
-        sudo apt-get install -y binutils-aarch64-linux-gnu zip
+        apt-get update
+        apt-get install -y binutils-aarch64-linux-gnu zip
     - name: Prepare artifacts
       run: |
         mkdir -p dist/{x86_64,arm64}
