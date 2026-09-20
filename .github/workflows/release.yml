@@ -43,8 +43,8 @@ jobs:
         cp .build/out/Products/Release-staticlinux-aarch64/github-apps-token dist/arm64/
         strip --verbose dist/x86_64/github-apps-token
         aarch64-linux-gnu-strip --verbose dist/arm64/github-apps-token
-        zip -j linux-x86_64.zip dist/x86_64/github-apps-token
-        zip -j linux-arm64.zip dist/arm64/github-apps-token
+        zip -j dist/linux-x86_64.zip dist/x86_64/github-apps-token
+        zip -j dist/linux-arm64.zip dist/arm64/github-apps-token
     - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
       with:
         name: github-apps-token-linux
