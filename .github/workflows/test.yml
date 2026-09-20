@@ -21,14 +21,21 @@ jobs:
     - name: Run test
       run: |
         set -o pipefail
-        swift test 2>&1 | xcbeautify
+        swift test 2>&1 | xcbeautify --renderer github-actions
 
   ubuntu:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-24.04-arm
+    container: swift:6.4.0
 
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+    - name: Install xcbeautify
+      run: |
+        apt-get update && apt-get install -y build-essential
+        git clone https://github.com/cpisciotta/xcbeautify.git
+        cd xcbeautify
+        make install
     - name: Run test
       run: |
         set -o pipefail
-        swift test 2>&1
+        swift test 2>&1 | xcbeautify --renderer github-actions
