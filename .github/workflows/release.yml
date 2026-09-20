@@ -33,7 +33,7 @@ jobs:
     - name: Build release for arm64
       run: swift build -c release --swift-sdk aarch64-swift-linux-musl
     - name: Install dependencies by apt-get
-      run:
+      run: |
         apt-get update
         apt-get install -y binutils-aarch64-linux-gnu zip
     - name: Prepare artifacts
