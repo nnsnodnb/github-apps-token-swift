@@ -6,5 +6,5 @@ debug_build:
 release_build:
 	@swift build -c release --arch arm64
 	@mkdir -p dist
-	@cp .build/arm64-apple-macosx/release/github-apps-token dist/
+	@cp .build/out/Products/Release/github-apps-token dist/
 	@strip dist/github-apps-token

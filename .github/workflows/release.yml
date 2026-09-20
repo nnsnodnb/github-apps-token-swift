@@ -39,8 +39,8 @@ jobs:
     - name: Prepare artifacts
       run: |
         mkdir -p dist/{x86_64,arm64}
-        cp .build/x86_64-swift-linux-musl/release/github-apps-token dist/x86_64/
-        cp .build/aarch64-swift-linux-musl/release/github-apps-token dist/arm64/
+        cp .build/out/Products/Release-staticlinux-x86_64/github-apps-token dist/x86_64/
+        cp .build/out/Products/Release-staticlinux-aarch64/github-apps-token dist/arm64/
         strip --verbose dist/x86_64/github-apps-token
         aarch64-linux-gnu-strip --verbose dist/arm64/github-apps-token
         zip -j linux-x86_64.zip dist/x86_64/github-apps-token
