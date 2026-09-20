@@ -13,7 +13,7 @@ mint install nnsnodnb/github-apps-token-swift
 or add to `Mintfile`.
 
 ```
-nnsnodnb/github-apps-token-swift@v1.2.1
+nnsnodnb/github-apps-token-swift@v1.2.2
 ```
 
 ### Manual
