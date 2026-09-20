@@ -38,7 +38,7 @@ jobs:
         apt-get install -y binutils-aarch64-linux-gnu zip
     - name: Prepare artifacts
       run: |
-        mkdir -p dist/{x86_64,arm64}
+        mkdir -p dist/x86_64 dist/arm64
         cp .build/out/Products/Release-staticlinux-x86_64/github-apps-token dist/x86_64/
         cp .build/out/Products/Release-staticlinux-aarch64/github-apps-token dist/arm64/
         strip --verbose dist/x86_64/github-apps-token
