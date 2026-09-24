@@ -24,7 +24,7 @@ jobs:
         swift test 2>&1 | xcbeautify --renderer github-actions
 
   ubuntu:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-26.04-arm
     container: swift:6.4.0
 
     steps:
