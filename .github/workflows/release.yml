@@ -23,7 +23,7 @@ jobs:
 
   linux_build:
     name: Build for Linux
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     container: ghcr.io/nnsnodnb/swift-static-linux-sdk:6.4.0-bookworm
 
     steps:
@@ -57,7 +57,7 @@ jobs:
     needs:
     - macos_build
     - linux_build
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
 
     permissions:
       contents: write
