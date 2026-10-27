@@ -17,7 +17,7 @@ jobs:
       DEVELOPER_DIR: /Applications/Xcode_27.0.app/Contents/Developer
 
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+    - uses: actions/checkout@v7.0.1
     - name: Run test
       run: |
         set -o pipefail
@@ -28,7 +28,7 @@ jobs:
     container: swift:6.4.1
 
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+    - uses: actions/checkout@v7.0.1
     - name: Install xcbeautify
       run: |
         apt-get update && apt-get install -y build-essential

@@ -11,12 +11,12 @@ jobs:
     runs-on: xcode-27
 
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+    - uses: actions/checkout@v7.0.1
     - name: Build release
       run: |
         make release_build
         zip -j dist/macos-portable.zip dist/github-apps-token
-    - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+    - uses: actions/upload-artifact@v7.0.2
       with:
         name: github-apps-token-macos
         path: dist/macos-portable.zip
@@ -27,7 +27,7 @@ jobs:
     container: ghcr.io/nnsnodnb/swift-static-linux-sdk:6.4.1-bookworm
 
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+    - uses: actions/checkout@v7.0.1
     - name: Build release for x86_64
       run: swift build -c release --swift-sdk x86_64-swift-linux-musl
     - name: Build release for arm64
@@ -45,7 +45,7 @@ jobs:
         aarch64-linux-gnu-strip --verbose dist/arm64/github-apps-token
         zip -j dist/linux-x86_64.zip dist/x86_64/github-apps-token
         zip -j dist/linux-arm64.zip dist/arm64/github-apps-token
-    - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+    - uses: actions/upload-artifact@v7.0.2
       with:
         name: github-apps-token-linux
         path: |
@@ -63,20 +63,20 @@ jobs:
       contents: write
 
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+    - uses: actions/checkout@v7.0.1
     - name: Download artifact for macOS
-      uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
+      uses: actions/download-artifact@v8.0.2
       with:
         name: github-apps-token-macos
         path: dist/macos
     - name: Download artifacts for Linux
-      uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
+      uses: actions/download-artifact@v8.0.2
       with:
         name: github-apps-token-linux
         path: dist/linux
     - name: Get the tag name
       run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> "${GITHUB_ENV}"
-    - uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
+    - uses: softprops/action-gh-release@v3.0.3
       if: startsWith(github.ref, 'refs/tags/')
       with:
         name: github-apps-token-swift ${{ env.TAG_NAME }}
