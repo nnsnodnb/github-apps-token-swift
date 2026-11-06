@@ -76,7 +76,7 @@ jobs:
         path: dist/linux
     - name: Get the tag name
       run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> "${GITHUB_ENV}"
-    - uses: softprops/action-gh-release@v3.0.3
+    - uses: softprops/action-gh-release@v3.0.4
       if: startsWith(github.ref, 'refs/tags/')
       with:
         name: github-apps-token-swift ${{ env.TAG_NAME }}
