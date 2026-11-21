@@ -11,7 +11,7 @@ import GitHubAppsAPI
 
 public struct Runner {
   // MARK: - Properties
-  public static let version = "1.2.2"
+  public static let version = "1.2.3"
 
   private let apiClient: any APIClientProtocol
 
