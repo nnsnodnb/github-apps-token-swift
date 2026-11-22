@@ -24,7 +24,7 @@ jobs:
   linux_build:
     name: Build for Linux
     runs-on: ubuntu-26.04
-    container: ghcr.io/nnsnodnb/swift-static-linux-sdk:6.4.2-bookworm
+    container: ghcr.io/nnsnodnb/swift-static-linux-sdk:6.4.3-bookworm
 
     steps:
     - uses: actions/checkout@v7.0.1
